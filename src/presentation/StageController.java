@@ -18,8 +18,8 @@ public abstract class StageController {
 		try {
 			
 			percorso_finale = CARTELLA_CONTROLLER + CONTROLLER + ESTENSIONE_CONTROLLER;
-			FXMLLoader fx = new FXMLLoader(getClass().getResource(percorso_finale));
-			
+			FXMLLoader fx = new FXMLLoader();
+			fx.setLocation(StageController.class.getResource(percorso_finale));
 			Stage a = new Stage();
 			a.setTitle(this.getClass().getName());
 			a.setScene(new Scene(fx.load()));

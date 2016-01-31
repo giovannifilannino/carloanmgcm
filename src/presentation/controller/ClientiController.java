@@ -103,21 +103,6 @@ public class ClientiController{
 	@FXML
 	public void apriNoleggio(ActionEvent e){
 		control.dispatchRequest("FinestraPrenotazione");
-		/*
-		try {
-			fromClient = true;
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("fxmlclass/FinestraPrenotazione.fxml"));
-			Stage a = new Stage();
-			a.setTitle("Noleggio Auto");
-			a.setScene(new Scene(loader.load()));
-			prenotazione1 = a;
-			a.show();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		*/
 	}
 	
 	public Stage prenotazione(){
