@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import presentation.FrontController;
+import presentation.SameStageController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +18,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
-public class ConfermaPrenotazioneController {
+public class ConfermaPrenotazioneController extends SameStageController{
+
+	@Override
+	public void show() {
+		super.setController("FinestraConfermaPrenotazione");
+		super.show();
+	}
 
 	@FXML
 	Label tipo_chilometraggio;
@@ -39,31 +47,24 @@ public class ConfermaPrenotazioneController {
 	@FXML
 	public void initialize(){
 		
-		tipo_chilometraggio.setText((NoleggioController.nuovo_contratto.getChilometraggio_limitato()));
-		tipo_noleggio.setText((NoleggioController.nuovo_contratto.getNoleggio()));
-		data_inizio.setText(NoleggioController.nuovo_contratto.getData_inizio().toString());
-		data_fine.setText(NoleggioController.nuovo_contratto.getData_fine().toString());
-		automobile.setText(NoleggioController.nuovo_contratto.getAuto().toString());
-		agenzia_restituzione.setText(NoleggioController.nuovo_contratto.getRestituzione().toString());
-		costo_previsto.setText(String.valueOf(NoleggioController.nuovo_contratto.preventivo()));
+		tipo_chilometraggio.setText((super.getContratto().getChilometraggio_limitato()));
+		tipo_noleggio.setText((super.getContratto().getNoleggio()));
+		data_inizio.setText(super.getContratto().getData_inizio().toString());
+		data_fine.setText(super.getContratto().getData_fine().toString());
+		automobile.setText(super.getContratto().getAuto().toString());
+		agenzia_restituzione.setText(super.getContratto().getRestituzione().toString());
+		costo_previsto.setText(String.valueOf(super.getContratto().preventivo()));
 		
 	}
 	
 	@FXML
 	public void indietro(ActionEvent e){
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("fxmlclass/FinestraPrenotazioneAutomobile.fxml"));
-		try {
-			ClientiController.prenotazione1.setScene(new Scene(loader.load()));
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		FrontController.getIstance().dispatchRequest("FinestraPrenotazioneAutomobile");
 	}
 	
 	@FXML
 	public void prenota(ActionEvent e) throws SQLException{
-		System.out.println(NoleggioController.nuovo_contratto.getTarga() + " mlmlml");
+		System.out.println(super.getContratto().getTarga() + " mlmlml");
 		Alert conferma = new Alert(AlertType.CONFIRMATION);
 		conferma.setTitle("Prenotazione noleggio");
 		conferma.setHeaderText("Vuoi confermare i dati inseriti?");
@@ -74,18 +75,17 @@ public class ConfermaPrenotazioneController {
 			
 		    
 			if(OperatoreController.fromOperator){
-				db.setNoleggio(NoleggioController.nuovo_contratto.getTarga(),null, NoleggioController.nuovo_contratto.getPrelievo().toString(), getKm(NoleggioController.nuovo_contratto.getChilometraggio_limitato()), getNoleggio(NoleggioController.nuovo_contratto.getNoleggio()), NoleggioController.nuovo_contratto.getData_inizio().toString(), NoleggioController.nuovo_contratto.getData_fine().toString(), NoleggioController.nuovo_contratto.getPrelievo().toString(), NoleggioController.nuovo_contratto.getRestituzione().toString(), NoleggioController.nuovo_contratto.getAcconto(), NoleggioController.nuovo_contratto.getAuto());
-				OperatoreController.contratto.add(NoleggioController.nuovo_contratto);
+				db.setNoleggio(super.getContratto().getTarga(),null, super.getContratto().getPrelievo().toString(), getKm(super.getContratto().getChilometraggio_limitato()), getNoleggio(super.getContratto().getNoleggio()), super.getContratto().getData_inizio().toString(), super.getContratto().getData_fine().toString(), super.getContratto().getPrelievo().toString(), super.getContratto().getRestituzione().toString(), super.getContratto().getAcconto(), super.getContratto().getAuto());
+				OperatoreController.contratto.add(super.getContratto());
 				OperatoreController.fromOperator = false;
 			} else {
-				db.setNoleggio(NoleggioController.nuovo_contratto.getTarga(),LoginController.username, NoleggioController.nuovo_contratto.getPrelievo().toString(), getKm(NoleggioController.nuovo_contratto.getChilometraggio_limitato()), getNoleggio(NoleggioController.nuovo_contratto.getNoleggio()), NoleggioController.nuovo_contratto.getData_inizio().toString(), NoleggioController.nuovo_contratto.getData_fine().toString(), NoleggioController.nuovo_contratto.getPrelievo().toString(), NoleggioController.nuovo_contratto.getRestituzione().toString(), NoleggioController.nuovo_contratto.getAcconto(), NoleggioController.nuovo_contratto.getAuto());
-				ClientiController.noleggi_cliente.add(NoleggioController.nuovo_contratto);
+				db.setNoleggio(super.getContratto().getTarga(),LoginController.username, super.getContratto().getPrelievo().toString(), getKm(super.getContratto().getChilometraggio_limitato()), getNoleggio(super.getContratto().getNoleggio()),super.getContratto().getData_inizio().toString(), super.getContratto().getData_fine().toString(), super.getContratto().getPrelievo().toString(), super.getContratto().getRestituzione().toString(), super.getContratto().getAcconto(), super.getContratto().getAuto());
+				ClientiController.noleggi_cliente.add(super.getContratto());
 				ClientiController.fromClient = false;
 			}
-			NoleggioController.dati = false;
+			super.getContratto().resetContratto();
 			PrenotazioneAutomobileController.dati = false;
-			Stage ml = (Stage) ClientiController.prenotazione1.getScene().getWindow();
-			ml.close();
+			super.getStage().close();
 		} else {
 		    conferma.close();
 		}

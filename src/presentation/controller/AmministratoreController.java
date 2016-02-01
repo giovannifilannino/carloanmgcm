@@ -4,7 +4,10 @@ package presentation.controller;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
+
+import presentation.FrontController;
 import presentation.Main;
+import presentation.StageController;
 import business.entity.Agente;
 import business.entity.Azienda;
 import integration.CarLoanDB;
@@ -23,7 +26,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-public class AmministratoreController {
+public class AmministratoreController extends StageController{
+
+	@Override
+	public void show() {
+		super.setController("FinestraAmministrazione");
+		super.show();
+	}
 
 	@FXML
 	Button inserisci_agente_btn;
@@ -109,17 +118,7 @@ public class AmministratoreController {
 	
 	@FXML
 	public void inserisci_agente(ActionEvent e){
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("fxmlclass/InserimentoAgente.fxml"));
-			Stage a = new Stage();
-			a.setTitle("Inserisci Agente");
-			a.setScene(new Scene(loader.load()));
-			a.show();
-			//((Node) e.getSource()).getScene().getWindow().hide();
-		} catch(Exception e1) {
-			e1.printStackTrace();
-		}
+		FrontController.getIstance().dispatchRequest("InserimentoAgente");
 	}
 	
 	@FXML

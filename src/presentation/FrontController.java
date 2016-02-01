@@ -3,7 +3,7 @@ package presentation;
 public class FrontController {
 	
 	private  Dispatcher dispatcher;
-	private  boolean autenticato = true;
+	private  boolean autenticato = false;
 	
 	private FrontController(){
 		dispatcher = new Dispatcher();

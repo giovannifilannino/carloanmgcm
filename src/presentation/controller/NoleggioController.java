@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import business.entity.Azienda;
 import business.entity.Cliente;
 import business.entity.Contratto;
+import presentation.FrontController;
+import presentation.SameStageController;
 import presentation.StageController;
 import presentation.controller.utility.Popup;
 import javafx.scene.control.Alert;
@@ -27,7 +29,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
-public class NoleggioController extends StageController{
+public class NoleggioController extends SameStageController{
 
 	@FXML
 	Button esci_btn;
@@ -53,20 +55,20 @@ public class NoleggioController extends StageController{
 	ToggleGroup chilometraggio = new ToggleGroup();
 	ToggleGroup noleggio = new ToggleGroup();
 	
-	ClientiController c = new ClientiController();
-	
-	static Contratto nuovo_contratto = new Contratto();
-	
 	LocalDate datainizio;
 	LocalDate datafine;
-	
-	static boolean dati = false;
 	
 	CarLoanDB db = new CarLoanDB();
 	ObservableList<String> agenzie;
 	ResultSet agenzieres;
 	
-	
+	private boolean checkContratto(){
+		boolean esito = false;
+		if(!super.getContratto().emptyContratto()){
+			esito = true;
+		}
+		return esito;
+	}
 	
 	@FXML
 	public void initialize() throws SQLException{
@@ -79,15 +81,15 @@ public class NoleggioController extends StageController{
 		setAgenzie();
 		agenzia.setItems(agenzie);
 		
-		if(dati){
-			inizio_noleggio.setValue(nuovo_contratto.getData_inizio());
-			agenzia.setValue(nuovo_contratto.getPrelievo().toString());
-			fine_noleggio.setValue(nuovo_contratto.getData_fine());
-			if(nuovo_contratto.getChilometraggio_limitato().equalsIgnoreCase("limitato"))
+		if(checkContratto()){
+			inizio_noleggio.setValue(super.getContratto().getData_inizio());
+			agenzia.setValue(super.getContratto().getPrelievo().toString());
+			fine_noleggio.setValue(super.getContratto().getData_fine());
+			if(super.getContratto().getChilometraggio_limitato().equalsIgnoreCase("limitato"))
 				chilometraggio_limitato.setSelected(true);
 			else
 				chilometraggio_illimitato.setSelected(true);
-			if(nuovo_contratto.getNoleggio().equalsIgnoreCase("giornaliero"))
+			if(super.getContratto().getNoleggio().equalsIgnoreCase("giornaliero"))
 				noleggio_giornaliero.setSelected(true);
 			else
 				noleggio_giornaliero.setSelected(true);
@@ -121,34 +123,22 @@ public class NoleggioController extends StageController{
 		} else if(agenzia.getValue() == null){
 			errore = errore + "Non hai inserito nessuna agenzia da cui prendere l'auto";
 			errore2 = true;
+		} else {
+			super.getContratto().setChilometraggio_limitato(chilometraggio_limitato.isSelected());
+			super.getContratto().setNoleggio(noleggio_giornaliero.isSelected());
+			super.getContratto().setData_inizio(inizio_noleggio.getValue());
+			super.getContratto().setData_fine(fine_noleggio.getValue());
+			super.getContratto().setPrelievo(new Azienda(agenzia.getValue().toString()));
+			super.getContratto().setCliente(new Cliente(LoginController.username));
+			loadPrenotazioneAuto();
 		}
-			
-		
 		if(errore2){
 			Popup.Errore("Errore inserimento", errore);
-		}
-		if(chilometraggio.getSelectedToggle() != null && noleggio.getSelectedToggle()!=null && checkData(inizio_noleggio, fine_noleggio) && agenzia.getValue() != null){
-			nuovo_contratto.setChilometraggio_limitato(chilometraggio_limitato.isSelected());
-			nuovo_contratto.setNoleggio(noleggio_giornaliero.isSelected());
-			nuovo_contratto.setData_inizio(inizio_noleggio.getValue());
-			nuovo_contratto.setData_fine(fine_noleggio.getValue());
-			nuovo_contratto.setPrelievo(new Azienda(agenzia.getValue().toString()));
-			nuovo_contratto.setCliente(new Cliente(LoginController.username));
-			loadPrenotazioneAuto();
 		}
 	}
 	
 	private void loadPrenotazioneAuto(){
-		try {
-			dati = true;
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("fxmlclass/FinestraPrenotazioneAutomobile.fxml"));
-			ClientiController.prenotazione1.setScene(new Scene(loader.load()));
-			
-		} catch (IOException e1) {
-			
-			e1.printStackTrace();
-		}
+		FrontController.getIstance().dispatchRequest("FinestraPrenotazioneAutomobile");
 	}
 	
 	@FXML
@@ -168,10 +158,6 @@ public class NoleggioController extends StageController{
 		}
 		return false;
 		
-	}
-	
-	public Contratto getContratto(){
-		return nuovo_contratto;
 	}
 
 }

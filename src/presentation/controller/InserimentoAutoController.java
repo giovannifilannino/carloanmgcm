@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import business.entity.Automobile;
+import presentation.StageController;
 import presentation.controller.utility.Popup;
 import integration.CarLoanDB;
 import javafx.collections.FXCollections;
@@ -15,7 +16,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class InserimentoAutoController {
+public class InserimentoAutoController extends StageController{
+
+	@Override
+	public void show() {
+		super.setController("InserimentoAuto");
+		super.show();
+	}
 
 	@FXML
 	TextField targa;

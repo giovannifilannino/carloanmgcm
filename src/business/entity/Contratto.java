@@ -23,6 +23,8 @@ public class Contratto {
 	
 	private float preventivo_value;
 	
+	
+	
 	public Contratto(String targa, String cliente,  String auto, boolean chilometraggio_limitato, boolean noleggio, String prelievo, String restituzione, double acconto){
 		this.targa = new SimpleStringProperty(targa);
 		this.cliente = new SimpleStringProperty(cliente);
@@ -214,5 +216,26 @@ public class Contratto {
 
 	public void setAcconto(Double acconto) {
 		this.acconto.set(acconto);
+	}
+	
+	public boolean emptyContratto(){
+		boolean esito = false;
+		if(this.data_inizio == null)
+			esito = true;
+		return esito;
+	}
+	
+	public void resetContratto(){
+		this.targa = new SimpleStringProperty("");
+		this.cliente = new SimpleStringProperty("");
+		this.auto = new SimpleStringProperty("");
+		this.chilometraggio_limitato = new SimpleStringProperty("");
+		this.noleggio = new SimpleStringProperty("");
+		this.prelievo = new SimpleStringProperty("");
+		this.restituzione = new SimpleStringProperty("");
+		this.acconto = new SimpleDoubleProperty(0.0);
+		this.stato = new SimpleStringProperty("non confermato");
+		this.categoria = new SimpleStringProperty("");
+		this.data_inizio = null;
 	}
 }

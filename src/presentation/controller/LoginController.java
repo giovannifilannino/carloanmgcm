@@ -39,9 +39,9 @@ public class LoginController {
 	@FXML
 	Hyperlink registero;
 	
-	String nome;
-	String cognome;
-	String agenzia;
+	private static String nome;
+	private static String cognome;
+	private static String agenzia;
 	
 	static String username;
 	
@@ -62,27 +62,22 @@ public class LoginController {
 		if(db.checkCredenzialiClienti(user.getText(), pass.getText()) ){
 			Parent root;
 			username = user.getText(); //salva l'informazione dell'username da passare all'interfaccia cliente o operatore
-			
+			FrontController.getIstance().setAutenticato();
 			try {
 				
 				//Caricamento nuova finestra e chiusura finestra login
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("fxmlclass/FinestraClienti.fxml"));
-				Stage a = new Stage();
-				a.setTitle("Clienti");
-				a.setScene(new Scene(loader.load()));
+				FrontController.getIstance().dispatchRequest("FinestraClienti");
 				Stage stage = (Stage) exit_btn.getScene().getWindow();
 				stage.close();
-				a.show();
+				
 				
 				//setta le informazioni nelle finestre username e operatore
-				ClientiController c = loader.<ClientiController>getController();
 				credenziali = db.getDatiUtenti(user.getText());
 				while(credenziali.next()){
 					nome = credenziali.getString("nomecliente");
 					cognome = credenziali.getString("cognomecliente");
 				}
-				c.setData(nome, cognome);
+				
 				
 			} catch(Exception e1) {
 				e1.printStackTrace();
@@ -90,45 +85,27 @@ public class LoginController {
 			
 			
 		} else if(db.checkCredenzialiAgenti(user.getText(), pass.getText())){
-			Parent root;
+			FrontController.getIstance().setAutenticato();
 			try {
 				
 				
 				setDataAgente();
 				
-				OperatoreController.sede_nome = agenzia;
-				
 				//Caricamento nuova finestra e chiusura finestra login
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("fxmlclass/FinestraOperatore.fxml"));
-				Stage a = new Stage();
-				a.setTitle("Operatore");
-				a.setScene(new Scene(loader.load()));
+				FrontController.getIstance().dispatchRequest("FinestraOperatore");
 				Stage stage = (Stage) exit_btn.getScene().getWindow();
 				stage.close();
-				OperatoreController c = loader.<OperatoreController>getController();
-				
-				
-				
-				c.setData(nome, cognome, agenzia);
-				
-				
-				a.show();
 				
 			} catch(Exception e1) {
 				e1.printStackTrace();
 			}
 		}else if(user.getText().equals("capone") && pass.getText().equalsIgnoreCase("capone")){
-			Parent root;
+			FrontController.getIstance().setAutenticato();
 			try {
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("fxmlclass/FinestraAmministrazione.fxml"));
-				Stage a = new Stage();
-				a.setTitle("Amministrazione");
-				a.setScene(new Scene(loader.load()));
+				FrontController.getIstance().dispatchRequest("FinestraAmministrazione");
 				Stage stage = (Stage) exit_btn.getScene().getWindow();
 				stage.close();
-				a.show();
+				
 			} catch(Exception e1) {
 				e1.printStackTrace();
 			}
@@ -171,11 +148,11 @@ public class LoginController {
 		}
 	}
 	
-	public String getName(){
+	public static String getName(){
 		return nome;
 	}
 	
-	public String getCognome(){
+	public static String getCognome(){
 		return cognome;
 	}
 

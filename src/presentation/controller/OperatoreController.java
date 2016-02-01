@@ -6,7 +6,10 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+
+import presentation.FrontController;
 import presentation.Main;
+import presentation.StageController;
 import presentation.controller.utility.Popup;
 import business.entity.Automobile;
 import business.entity.Contratto;
@@ -25,7 +28,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-public class OperatoreController {
+public class OperatoreController extends StageController{
+
+	@Override
+	public void show() {
+		super.setController("FinestraOperatore");
+		super.show();
+	}
 
 	@FXML
 	Label nome;
@@ -131,19 +140,7 @@ public class OperatoreController {
 	
 	@FXML
 	public void nuovo_noleggio(ActionEvent e){
-		try {
-			fromOperator = true;
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("fxmlclass/FinestraPrenotazione.fxml"));
-			Stage a = new Stage();
-			a.setTitle("Noleggio Auto");
-			a.setScene(new Scene(loader.load()));
-			ClientiController.prenotazione1 = a;
-			a.show();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		FrontController.getIstance().dispatchRequest("FinestraPrenotazione");
 	}
 	
 	@FXML

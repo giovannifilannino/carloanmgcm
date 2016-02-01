@@ -3,6 +3,7 @@ package presentation.controller;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import presentation.StageController;
 import presentation.controller.utility.Popup;
 import integration.CarLoanDB;
 import business.entity.Agente;
@@ -16,7 +17,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class InserisciAgenteController {
+public class InserisciAgenteController extends StageController{
+
+	@Override
+	public void show() {
+		super.setController("InserimentoAgente");
+		super.show();
+	}
 
 	@FXML
 	TextField nome;

@@ -8,6 +8,8 @@ import java.util.Hashtable;
 import integration.CarLoanDB;
 import business.entity.Automobile;
 import business.entity.Azienda;
+import presentation.FrontController;
+import presentation.SameStageController;
 import presentation.controller.utility.Popup;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +21,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-public class PrenotazioneAutomobileController {
+public class PrenotazioneAutomobileController extends SameStageController{
+
+	@Override
+	public void show() {
+		super.setController("FinestraPrenotazioneAutomobile");
+		super.show();
+	}
 
 	@FXML
 	ComboBox categoria;
@@ -46,6 +54,8 @@ public class PrenotazioneAutomobileController {
 	CarLoanDB car = new CarLoanDB();
 	@SuppressWarnings("unchecked")
 	@FXML
+	
+	
 	public void initialize() throws SQLException{
 	
 		automobili = FXCollections.observableArrayList();
@@ -62,10 +72,10 @@ public class PrenotazioneAutomobileController {
 		
 		agenzie.setItems(agenziee);
 		
-		if(dati){
-			categoria.setValue(NoleggioController.nuovo_contratto.getCategoria());
-			automobile.setValue(NoleggioController.nuovo_contratto.getAuto());
-			agenzie.setValue(NoleggioController.nuovo_contratto.getRestituzione().toString());
+		if(!super.getContratto().emptyContratto()){
+			categoria.setValue(super.getContratto().getCategoria());
+			automobile.setValue(super.getContratto().getAuto());
+			agenzie.setValue(super.getContratto().getRestituzione().toString());
 		} else {
 			automobile.setDisable(true);
 			agenzie.setDisable(true);
@@ -91,7 +101,7 @@ public class PrenotazioneAutomobileController {
 		automobili = FXCollections.observableArrayList();
 		if(categoria.getValue()!=null){
 			automobile.setDisable(false);
-			autoset = car.getAuto(categoria.getValue().toString(), NoleggioController.nuovo_contratto.getPrelievo().toString());
+			autoset = car.getAuto(categoria.getValue().toString(), super.getContratto().getPrelievo().toString());
 			while(autoset.next()){
 				automobili.add(autoset.getString("nomeauto"));
 				String at = autoset.getString("nomeauto");
@@ -119,42 +129,41 @@ public class PrenotazioneAutomobileController {
 	public void datiOK(ActionEvent e){
 		
 		if(agenzie.getValue()!=null && checkAcconto(acconto.getText())){
-			dati = true;
-			NoleggioController.nuovo_contratto.setCategoria(categoria.getValue().toString());
-			NoleggioController.nuovo_contratto.setAuto(new Automobile(automobile.getValue().toString()));
-			NoleggioController.nuovo_contratto.setRestituzione(new Azienda(agenzie.getValue().toString()));
-			NoleggioController.nuovo_contratto.setTarga(autodizio.get(automobile.getValue().toString()));
-			NoleggioController.nuovo_contratto.setAcconto(restituisciAcconto());
+			super.getContratto().setCategoria(categoria.getValue().toString());
+			super.getContratto().setAuto(new Automobile(automobile.getValue().toString()));
+			super.getContratto().setRestituzione(new Azienda(agenzie.getValue().toString()));
+			super.getContratto().setTarga(autodizio.get(automobile.getValue().toString()));
+			super.getContratto().setAcconto(restituisciAcconto());
 		}
 	}
 	
 	@FXML
 	public void indietro(ActionEvent e){
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("fxmlclass/FinestraPrenotazione.fxml"));
-		try {
-			ClientiController.prenotazione1.setScene(new Scene(loader.load()));
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		FrontController.getIstance().dispatchRequest("FinestraPrenotazione");
 	}
 	
 	@FXML
 	public void avanti(ActionEvent e){
-		if(dati){
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("fxmlclass/FinestraConfermaPrenotazione.fxml"));
-			try {
-				ClientiController.prenotazione1.setScene(new Scene(loader.load()));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		} else {
-			Popup.Errore("Errore inserimento", "Non hai ancora completato tutti i campi.");
+		String error = "";
+		String agenzia = agenzie.getValue().toString();
+		String categoriette = categoria.getValue().toString();
+		String automobile = categoria.getValue().toString();
+		if(agenzia.equals("")){
+			error += "Non hai inserito l'agenzia!\n";
+		} 
+		if (categoriette==""){
+			error += "Non hai inserito la categoria\n";
+		} 
+		if(automobile==""){
+			error += "Non hai inserito l'automobile\n";
+		} 
+		if(error.equalsIgnoreCase("")){
+			FrontController.getIstance().dispatchRequest("finestraconfermaprenotazione");
 		}
 		
+		if(!error.equalsIgnoreCase("")){
+			Popup.Errore("Errore inserimento", error);
+		}
 	}
 	
 	

@@ -10,7 +10,6 @@ public class Agente {
 	private final SimpleStringProperty user;
 	
 	
-	
 	public Agente(String agenzia, String nome, String cognome, String username){
 		this.agenzia = new SimpleStringProperty(agenzia);
 		this.nome = new SimpleStringProperty(nome);

@@ -2,13 +2,11 @@ package presentation.controller;
 
 
 import integration.CarLoanDB;
-
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import presentation.FrontController;
 import presentation.Main;
+import presentation.StageController;
 import business.entity.Automobile;
 import business.entity.Cliente;
 import business.entity.Contratto;
@@ -16,8 +14,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -27,7 +23,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-public class ClientiController{
+public class ClientiController extends StageController{
+
+	@Override
+	public void show() {
+		super.setController("FinestraClienti");
+		super.show();
+	}
 
 	@FXML
 	Label nome;
@@ -53,7 +55,7 @@ public class ClientiController{
 	FrontController control = FrontController.getIstance();
 	
 	Image logopic = new Image(Main.class.getResourceAsStream("controller/utility/logo.png"));
-	static Stage prenotazione1;
+	
 	static boolean fromClient = false;
 	
 	CarLoanDB db = new CarLoanDB();
@@ -63,6 +65,8 @@ public class ClientiController{
 	
 	@FXML
 	public void initialize() throws SQLException{
+		nome.setText(LoginController.getName());
+		cognome.setText(LoginController.getCognome());
 		setContratti();
 		setContrattiTable();
 		logo.setImage(logopic);
@@ -103,10 +107,6 @@ public class ClientiController{
 	@FXML
 	public void apriNoleggio(ActionEvent e){
 		control.dispatchRequest("FinestraPrenotazione");
-	}
-	
-	public Stage prenotazione(){
-		return prenotazione1;
 	}
 	
 	private boolean getValue(int i){
