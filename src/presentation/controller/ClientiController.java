@@ -65,6 +65,7 @@ public class ClientiController extends StageController{
 	
 	@FXML
 	public void initialize() throws SQLException{
+		String banana = LoginController.getName();
 		nome.setText(LoginController.getName());
 		cognome.setText(LoginController.getCognome());
 		setContratti();
