@@ -34,6 +34,6 @@
          </children>
       </GridPane>
       <Button layoutX="37.0" layoutY="528.0" mnemonicParsing="false" text="Conferma" onAction="#conferma"/>
-      <Button layoutX="320.0" layoutY="528.0" mnemonicParsing="false" text="Esci" fx:id="esci_btn"  onAction="#esci"/>
+      <Button layoutX="320.0" layoutY="528.0" mnemonicParsing="false" text="Esci" fx:id="esci_btn"  onAction="#closeStage"/>
    </children>
 </AnchorPane>

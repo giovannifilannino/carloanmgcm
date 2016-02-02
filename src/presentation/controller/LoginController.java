@@ -4,10 +4,12 @@ package presentation.controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import integration.CarLoanDB;
 import presentation.FrontController;
 import presentation.Main;
+import presentation.StageController;
 import presentation.controller.utility.Popup;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,10 +24,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-public class LoginController {
+public class LoginController extends StageController{
 
 	
 	
+	
+
 	@FXML
 	Button enter;
 	@FXML
@@ -39,9 +43,10 @@ public class LoginController {
 	@FXML
 	Hyperlink registero;
 	
-	private static String nome;
-	private static String cognome;
+	private static  String nome;
+	private  static String cognome;
 	private static String agenzia;
+	
 	
 	static String username;
 	
@@ -57,33 +62,39 @@ public class LoginController {
 		logo.setImage(logopic);
 	}
 	
+	@Override
+	public void show() {
+		super.setController("LoginWin");
+		super.show();
+	}
+	
+	public void closeStage(){
+		Stage stage = (Stage) exit_btn.getScene().getWindow();
+		stage.close();
+	}
+	
 	@FXML
 	public void login(ActionEvent e) throws SQLException{
 		if(db.checkCredenzialiClienti(user.getText(), pass.getText()) ){
 			Parent root;
 			username = user.getText(); //salva l'informazione dell'username da passare all'interfaccia cliente o operatore
-			FrontController.getIstance().setAutenticato();
-			try {
-				
-				//Caricamento nuova finestra e chiusura finestra login
-				FrontController.getIstance().dispatchRequest("FinestraClienti");
-				Stage stage = (Stage) exit_btn.getScene().getWindow();
-				stage.close();
+			
+			
 				
 				
 				//setta le informazioni nelle finestre username e operatore
 				credenziali = db.getDatiUtenti(user.getText());
+				
 				while(credenziali.next()){
-					nome = credenziali.getString("nomecliente");
+					nome  = credenziali.getString("nomecliente");
 					cognome = credenziali.getString("cognomecliente");
 				}
 				
 				
-			} catch(Exception e1) {
-				e1.printStackTrace();
-			}
-			
-			
+				
+				FrontController.getIstance().setAutenticato();
+				FrontController.getIstance().dispatchRequest("FinestraClienti");
+				
 		} else if(db.checkCredenzialiAgenti(user.getText(), pass.getText())){
 			FrontController.getIstance().setAutenticato();
 			try {
@@ -155,6 +166,16 @@ public class LoginController {
 	public static String getCognome(){
 		return cognome;
 	}
+	
+	public static String getAgenzia(){
+		return agenzia;
+	}
+	
+	private void setName(String name){
+		this.nome = nome;
+	}
+	
+	
 
 	
 	

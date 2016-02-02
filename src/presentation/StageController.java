@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public abstract class StageController {
+public abstract class StageController implements StageIF{
 
 	private final String CARTELLA_CONTROLLER = "controller/fxmlclass/";
 	private final String ESTENSIONE_CONTROLLER = ".fxml";
@@ -32,7 +32,7 @@ public abstract class StageController {
 		}
 	}
 	
-	protected void setController(String controller){
+	public void setController(String controller){
 		CONTROLLER = controller;
 	}
 }

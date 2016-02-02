@@ -14,6 +14,7 @@ public class Dispatcher {
 	private InserisciAgenteController agente;
 	private InserimentoAutoController automobile;
 	private RegisterController registrazione;
+	private LoginController login;
 	
 	public Dispatcher(){
 		noleggio = new NoleggioController();
@@ -25,6 +26,7 @@ public class Dispatcher {
 		agente = new InserisciAgenteController();
 		automobile = new InserimentoAutoController();
 		registrazione = new RegisterController();
+		login = new LoginController();
 	}
 	
 	
@@ -47,6 +49,8 @@ public class Dispatcher {
 			automobile.show();
 		} else if(request.equalsIgnoreCase("registerwindows")){
 			registrazione.show();
+		} else if(request.equals("LoginWin")){
+			login.show();
 		}
 	}
 }

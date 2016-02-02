@@ -52,18 +52,21 @@ public class InserisciAgenteController extends StageController{
 	}
 	
 	public void conferma(ActionEvent e) throws SQLException{
-		Stage esc =  (Stage) esci_btn.getScene().getWindow();
+		
 		if(username.getText() != null && password.getText() != null && nome.getText() != null && agenzie.getValue() != null){
 			db.setAgente(username.getText(), password.getText(), nome.getText(), cognome.getText(), agenzie.getValue().toString());
 			Agente agente = new Agente(agenzie.getValue().toString(), nome.getText(), cognome.getText(), username.getText());
 			AmministratoreController.agente.add(agente);
-			esc.close();
+			closeStage();
 		}else{
 			Popup.Errore("Errore inserimento.", "Non hai inserito tutte le informazioni necessarie.");
 			}
 	}
 	
-	public void esci(ActionEvent e){
+	
+	@FXML
+	@Override
+	public void closeStage() {
 		Stage esc =  (Stage) esci_btn.getScene().getWindow();
 		esc.close();
 	}

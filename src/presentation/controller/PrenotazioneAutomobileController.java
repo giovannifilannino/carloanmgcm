@@ -184,4 +184,11 @@ public class PrenotazioneAutomobileController extends SameStageController{
 			return 0.0;
 		return Double.valueOf(acconto.getText());
 	}
+
+
+	@Override
+	public void closeStage() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -106,6 +106,9 @@ public class OperatoreController extends StageController{
 		}
 		setAutoData();
 		setContrattoData();
+		nome.setText(LoginController.getName());
+		cognome.setText(LoginController.getCognome());
+		sede.setText(LoginController.getAgenzia());
 	}
 	
 	private void setAutoData(){
@@ -126,17 +129,7 @@ public class OperatoreController extends StageController{
 		stato_noleggio.setCellValueFactory(new PropertyValueFactory<Contratto,String>("stato"));
 	}
 	
-	public void setData(String string, String string2, String string3) {
-		
-		nome.setText(string);
-		cognome.setText(string2);
-		sede.setText(string3);
-		
-	}
 	
-	public void setSede(String agenzia){
-		sede_nome = agenzia;
-	}
 	
 	@FXML
 	public void nuovo_noleggio(ActionEvent e){
@@ -228,6 +221,12 @@ public class OperatoreController extends StageController{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void closeStage() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

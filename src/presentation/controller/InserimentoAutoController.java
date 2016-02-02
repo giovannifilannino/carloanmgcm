@@ -60,7 +60,7 @@ public class InserimentoAutoController extends StageController{
 		if(targa.getText()!=null && modello_auto.getText() != null && agenzia.getValue() != null && categorie.getValue() != null && isNumeric(cilindrata.getText())){
 			db.setAuto(targa.getText(), modello_auto.getText(), getCilindrata(cilindrata.getText()), agenzia.getValue().toString(), categorie.getValue().toString());
 			OperatoreController.auto.add(new Automobile(targa.getText(), modello_auto.getText(), getCilindrata(cilindrata.getText()), agenzia.getValue(), categorie.getValue()));
-			esci();
+			closeStage();
 		} else {
 			Popup.Errore("Errore inserimento", "Non hai inserito tutti i dati");
 		}
@@ -80,7 +80,7 @@ public class InserimentoAutoController extends StageController{
 	
 	@FXML
 	public void esci(ActionEvent e){
-		esci();
+		closeStage();
 	}
 	
 	private static boolean isNumeric(String str)  
@@ -104,7 +104,11 @@ public class InserimentoAutoController extends StageController{
 		return value;
 	}
 	
-	private void esci(){
+	
+
+
+	@Override
+	public void closeStage() {
 		Stage s = (Stage) esci_btn.getScene().getWindow();
 		s.close();
 	}

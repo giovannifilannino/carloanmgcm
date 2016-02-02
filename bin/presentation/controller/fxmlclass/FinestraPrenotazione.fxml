@@ -43,7 +43,7 @@
             <ComboBox prefHeight="25.0" prefWidth="173.0" GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="agenzia"/>
          </children>
       </GridPane>
-      <Button fx:id="esci_btn" layoutX="30.0" layoutY="470.0" mnemonicParsing="false" text="Esci" onAction="#esci"/>
+      <Button fx:id="esci_btn" layoutX="30.0" layoutY="470.0" mnemonicParsing="false" text="Esci" onAction="#closeStage"/>
       <Button fx:id="avanti_btn" layoutX="303.0" layoutY="470.0" mnemonicParsing="false"  text="Avanti" onAction="#avanti"/>
    </children>
 </AnchorPane>

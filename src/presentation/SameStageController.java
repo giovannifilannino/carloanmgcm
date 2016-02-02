@@ -9,7 +9,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.stage.Stage;
 
-public abstract class SameStageController {
+public abstract class SameStageController implements StageIF{
 	
 	private static Stage stage = new Stage();
 	private static Contratto contratto = new Contratto();
@@ -41,7 +41,7 @@ public abstract class SameStageController {
 		return contratto;
 	}
 	
-	protected void setController(String controller){
+	public void setController(String controller){
 		CONTROLLER = controller;
 	}
 

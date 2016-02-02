@@ -107,4 +107,10 @@ public class ConfermaPrenotazioneController extends SameStageController{
 		return output;
 	}
 
+	@Override
+	public void closeStage() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

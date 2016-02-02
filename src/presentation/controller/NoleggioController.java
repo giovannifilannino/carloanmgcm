@@ -141,11 +141,7 @@ public class NoleggioController extends SameStageController{
 		FrontController.getIstance().dispatchRequest("FinestraPrenotazioneAutomobile");
 	}
 	
-	@FXML
-	public void esci(ActionEvent e){
-		Stage stage = (Stage) esci_btn.getScene().getWindow();
-		stage.close();
-	}
+	
 	
 	public boolean checkData(DatePicker d1, DatePicker d2){
 		LocalDate datainizio = d1.getValue();
@@ -157,6 +153,14 @@ public class NoleggioController extends SameStageController{
 			return true;	
 		}
 		return false;
+		
+	}
+	
+	@FXML
+	@Override
+	public void closeStage() {
+		Stage stage = (Stage) esci_btn.getScene().getWindow();
+		stage.close();
 		
 	}
 

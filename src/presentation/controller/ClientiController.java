@@ -2,8 +2,11 @@ package presentation.controller;
 
 
 import integration.CarLoanDB;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import presentation.FrontController;
 import presentation.Main;
 import presentation.StageController;
@@ -65,7 +68,7 @@ public class ClientiController extends StageController{
 	
 	@FXML
 	public void initialize() throws SQLException{
-		String banana = LoginController.getName();
+		
 		nome.setText(LoginController.getName());
 		cognome.setText(LoginController.getCognome());
 		setContratti();
@@ -115,6 +118,12 @@ public class ClientiController extends StageController{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void closeStage() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

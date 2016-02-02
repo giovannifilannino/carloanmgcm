@@ -152,5 +152,11 @@ public class AmministratoreController extends StageController{
 			}
 		}
 	}
+
+	@Override
+	public void closeStage() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

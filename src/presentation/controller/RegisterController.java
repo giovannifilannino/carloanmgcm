@@ -69,8 +69,7 @@ public class RegisterController extends StageController{
 	
 	@FXML
 	public void esci(ActionEvent e){
-		Stage a = (Stage) esci_btn.getScene().getWindow();
-		a.close();
+		closeStage();
 		
 	}
 	
@@ -87,8 +86,7 @@ public class RegisterController extends StageController{
 			if (result.get() == ButtonType.OK){
 			   db.setCliente(username.getText(), password.getText(), nome.getText(), cognome.getText(), getPatentato(), nrtelefono.getText());
 			   alert.close();
-			   Stage a = (Stage) esci_btn.getScene().getWindow();
-				a.close();
+			   closeStage();
 			} else {
 			   alert.close();
 			}
@@ -130,6 +128,13 @@ public class RegisterController extends StageController{
 			  return false;
 	  }  
 	  return true;
+	}
+
+	@Override
+	public void closeStage() {
+		Stage a = (Stage) esci_btn.getScene().getWindow();
+		a.close();
+		
 	}
 	
 }
