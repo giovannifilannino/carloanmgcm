@@ -4,10 +4,11 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Agente {
 	
-	private final SimpleStringProperty agenzia;
-	private final SimpleStringProperty nome;
-	private final SimpleStringProperty cognome;
-	private final SimpleStringProperty user;
+	private SimpleStringProperty agenzia;
+	private SimpleStringProperty nome;
+	private SimpleStringProperty cognome;
+	private SimpleStringProperty user;
+	private SimpleStringProperty password;
 	
 	
 	public Agente(String agenzia, String nome, String cognome, String username){
@@ -17,6 +18,9 @@ public class Agente {
 		this.user = new SimpleStringProperty(username);
 	}
 	
+	public Agente(){
+		
+	}
 	public String getAgenzia() {
 		return agenzia.get();
 	}
@@ -47,6 +51,14 @@ public class Agente {
 	
 	public void setUser(String username){
 		user.set(username);
+	}
+
+	public String getPassword() {
+		return password.get();
+	}
+
+	public void setPassword(String password2) {
+		password.set(password2);
 	}
 	
 }

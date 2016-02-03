@@ -20,6 +20,9 @@ public class Automobile {
 		this.categoria = new SimpleStringProperty(categoria);
 		this.disponibile = new SimpleStringProperty("disponibile");
 	}
+	public Automobile(){
+		
+	}
 	
 	public Automobile(String modello_auto){
 		this.modello_auto = new SimpleStringProperty(modello_auto);
@@ -44,6 +47,9 @@ public class Automobile {
 	public String getDisponibile(){
 		return disponibile.get();
 	}
+	public String getAgenzia(){
+		return agenzia.get();
+	}
 
 
 	@Override
@@ -51,8 +57,8 @@ public class Automobile {
 		return modello_auto.get();
 	}
 
-	public void setModello_auto(SimpleStringProperty modello_auto) {
-		this.modello_auto = modello_auto;
+	public void setModello_auto(String modello_auto2) {
+		this.modello_auto.set(modello_auto2);;
 	}
 
 	public void setTarga(String targa2) {

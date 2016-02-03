@@ -8,7 +8,7 @@ public class CarLoanDB {
 	public CarLoanDB(){	
 		try{
 			new com.mysql.jdbc.Driver();
-			connessione=DriverManager.getConnection("jdbc:mysql://localhost/CarLoanDB", "root","root");
+			connessione=DriverManager.getConnection("jdbc:mysql://localhost/CarLoanDB", "root","nicoletta94");
 		}
 		catch(SQLException e){
 			e.printStackTrace();
@@ -202,6 +202,7 @@ public class CarLoanDB {
 				+ "SET Chiuso='Chiuso' "
 				+ "WHERE Targa=? AND Chiuso!='CHIUSO' AND Chiuso !='NON CONFERMATO'";
 		PreparedStatement prepStat1=connessione.prepareStatement(query1);
+		
 		prepStat1.setString(1, targa);
 		prepStat1.executeUpdate();
 	}
