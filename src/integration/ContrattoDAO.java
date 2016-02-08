@@ -16,6 +16,8 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 	private final static String CONFERMA_QUERY="UPDATE Noleggi SET Chiuso='CONFERMATO' WHERE Targa=? AND Chiuso!='CHIUSO' AND Chiuso!='CONFERMATO'";
 	private final static String CHIUDI_QUERY1="UPDATE Auto SET Disponibile=1 WHERE Targa=?";
 	private final static String CHIUDI_QUERY2="UPDATE Noleggi SET Chiuso='Chiuso' WHERE Targa=? AND Chiuso!='CHIUSO' AND Chiuso !='NON CONFERMATO'";
+	private final static String GET_NOLEGGIOC_QUERY="SELECT * FROM Noleggi WHERE UsernameC=?";
+	
 	@Override
 	public void create(Contratto entity) throws SQLException {
 		PreparedStatement prepStat = connessione.prepareStatement(INSERT_QUERY);
@@ -76,6 +78,13 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 		PreparedStatement prepStat=connessione.prepareStatement(GET_NOLEGGIOA_QUERY);
 		prepStat.setString(1, nomeAgenzia);
 		ResultSet risultato =prepStat.executeQuery();
+		List<Contratto> lista=getLista(risultato);
+		return lista;
+	}
+	public List<Contratto> getNoleggiC(String usernameC) throws SQLException{
+		PreparedStatement prepStat=connessione.prepareStatement(GET_NOLEGGIOC_QUERY);
+		prepStat.setString(1, usernameC);
+		ResultSet risultato=prepStat.executeQuery();
 		List<Contratto> lista=getLista(risultato);
 		return lista;
 	}

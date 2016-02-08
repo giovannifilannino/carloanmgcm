@@ -40,7 +40,7 @@ public class AgenteDAO extends DAOAB<Agente>{
 
 	@Override
 	public void delete(String usernameAgente) throws SQLException {
-		PreparedStatement prepStat=DB.connessione.prepareStatement(DELETE_QUERY);
+		PreparedStatement prepStat=connessione.prepareStatement(DELETE_QUERY);
 		prepStat.setString(1, usernameAgente);
 		prepStat.executeUpdate();
 		
@@ -48,7 +48,7 @@ public class AgenteDAO extends DAOAB<Agente>{
 
 	@Override
 	public Agente read(String usernameAgente) throws SQLException {
-		PreparedStatement prepStat=DB.connessione.prepareStatement(READ_QUERY);
+		PreparedStatement prepStat=connessione.prepareStatement(READ_QUERY);
 		prepStat.setString(1, usernameAgente);
 		ResultSet risultato=prepStat.executeQuery();
 		List<Agente> lista = new LinkedList<Agente>();
@@ -58,14 +58,14 @@ public class AgenteDAO extends DAOAB<Agente>{
 
 	@Override
 	public List<Agente> getAll() throws SQLException {
-		PreparedStatement prepStat=DB.connessione.prepareStatement(GET_ALL_QUERY);
+		PreparedStatement prepStat=connessione.prepareStatement(GET_ALL_QUERY);
 		ResultSet risultato=prepStat.executeQuery();
 		List<Agente> lista=getLista(risultato);
 		return lista;
 	}
 	
 	public boolean checkCredenziali(String usernameA,String passwordA) throws SQLException{
-		PreparedStatement prepStat=DB.connessione.prepareStatement(CHECK_QUERY);
+		PreparedStatement prepStat=connessione.prepareStatement(CHECK_QUERY);
 		prepStat.setString(1, usernameA);
 		prepStat.setString(2, passwordA);
 		ResultSet risultato=prepStat.executeQuery();

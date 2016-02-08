@@ -75,6 +75,18 @@ public class CategoriaAutomobile {
 		return categoria;
 	}
 	
+	public void setPrezzoBase(double prezzoBase) {
+		 this.prezzoBase=prezzoBase;
+	}
+
+	public void setPrezzoIllimitato(double prezzoIllimitato) {
+		this.prezzoIllimitato=prezzoIllimitato;
+	}
+	
+	public void setCategoria(Categoria categoria){
+		this.categoria=categoria;
+	}
+	
 	@Override
 	public String toString(){
 		String output = "";

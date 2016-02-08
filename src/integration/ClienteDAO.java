@@ -14,7 +14,7 @@ public class ClienteDAO extends DAOAB<Cliente>{
 	private static final String READ_QUERY="SELECT * FROM Clienti WHERE UsernameC=?";
 	private static final String CHECK_QUERY="SELECT UsernameC FROM Clienti WHERE UsernameC=? AND PasswordC=?";
 	private static final String CHECK_VALIDAZIONE_CLIENTE_QUERY="SELECT UsernameA FROM Agenti WHERE UsernameA=? AND PasswordA=?";
-	
+
 	@Override
 	public void create(Cliente entity) throws SQLException {
 		PreparedStatement prepStat=connessione.prepareStatement(INSERT_QUERY);
@@ -72,17 +72,14 @@ public class ClienteDAO extends DAOAB<Cliente>{
 		else
 			return false;
 	}
-	public boolean checkCredenzialiAgenti(String usernameA,String passwordA) throws SQLException{
-		PreparedStatement prepStat = connessione.prepareStatement(CHECK_VALIDAZIONE_CLIENTE_QUERY);
-		prepStat.setString(1, usernameA);
-		prepStat.setString(2, passwordA);
-		ResultSet ris=prepStat.executeQuery();
-		if(ris.next()){
-			return true;
-		}
-		else
+	public boolean checkEsistenzaCliente(String usernameC) throws SQLException{
+		Cliente c=read(usernameC);
+		if(c==null)
 			return false;
+		else
+			return true;
 	}
+	
 	
 	private List<Cliente> getLista(ResultSet resultSet) throws SQLException{
 		List<Cliente> clienti=new LinkedList<Cliente>();
