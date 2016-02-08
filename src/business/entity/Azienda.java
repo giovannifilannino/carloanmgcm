@@ -1,5 +1,8 @@
 package business.entity;
+import java.sql.SQLException;
+import java.util.List;
 
+import integration.AziendaDAO;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Azienda {
@@ -7,6 +10,7 @@ public class Azienda {
 	private SimpleStringProperty nome_azienda;
 	private String nome;
 	private String citta;
+	private AziendaDAO aziendadao;
 	
 	
 	public Azienda(String nome_azienda2){
@@ -40,6 +44,15 @@ public class Azienda {
 
 	public void setCitta(String citta) {
 		this.citta = citta;
+	}
+	
+	
+	public Azienda read(String ID) throws SQLException {
+		return aziendadao.read(ID);
+	}
+	
+	public List<Azienda> getAll() throws SQLException {
+		return aziendadao.getAll();
 	}
 	
 	

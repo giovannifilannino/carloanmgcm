@@ -1,4 +1,7 @@
 package business.entity;
+import java.sql.SQLException;
+
+import integration.ClienteDAO;
 
 public class Cliente {
 	
@@ -8,6 +11,7 @@ public class Cliente {
 	private String passowrdCliente;
 	private int neoPatentato;
 	private String numTelefono;
+	private ClienteDAO clientedao;
 	
 	
 	public Cliente(){}
@@ -66,5 +70,17 @@ public class Cliente {
 	
 	public String getNome(){
 		return nomeCliente;
+	}
+	
+	public Cliente read(String usernameC) throws SQLException {
+		return clientedao.read(usernameC);
+	}
+	
+	public boolean checkCredenzialiClienti(String usernameC,String passwordC) throws SQLException{
+		return clientedao.checkCredenzialiClienti(usernameC, passwordC);
+	}
+	
+	public boolean checkEsistenzaCliente(String usernameC) throws SQLException{
+		return clientedao.checkEsistenzaCliente(usernameC);
 	}
 }

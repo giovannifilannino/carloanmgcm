@@ -1,6 +1,10 @@
 package business.entity;
+import integration.ContrattoDAO;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
+
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -22,6 +26,7 @@ public class Contratto {
 	private SimpleStringProperty stato;
 	private SimpleStringProperty agenzia;
 	private int codNoleggio;
+	private ContrattoDAO contrattodao;
 	
 	private float preventivo_value;
 	
@@ -258,5 +263,21 @@ public class Contratto {
 
 	public void setCodNoleggio(int codNoleggio) {
 		this.codNoleggio = codNoleggio;
+	}
+	
+	public Contratto read(String ID) throws SQLException {
+		return contrattodao.read(ID);
+	}
+	
+	public List<Contratto> getAll() throws SQLException {
+		return contrattodao.getAll();
+	}
+	
+	public List<Contratto> getNoleggiA(String nomeAgenzia) throws SQLException{
+		return contrattodao.getNoleggiA(nomeAgenzia);
+	}
+	
+	public List<Contratto> getNoleggiC(String usernameC) throws SQLException{
+		return contrattodao.getNoleggiC(usernameC);
 	}
 }

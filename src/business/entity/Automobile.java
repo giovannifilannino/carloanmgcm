@@ -1,7 +1,11 @@
 package business.entity;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import integration.AutomobileDAO;
 
 public class Automobile {
 	
@@ -11,6 +15,7 @@ public class Automobile {
 	private SimpleStringProperty agenzia;
 	private SimpleStringProperty categoria;
 	private SimpleStringProperty disponibile;
+	private AutomobileDAO dao;
 	
 	public Automobile(String modello_auto, String targa, int cilindrata, String agenzia, String categoria){
 		this.modello_auto = new SimpleStringProperty(modello_auto);
@@ -82,5 +87,14 @@ public class Automobile {
 			disponibile.set("disponibile");
 		}
 	}
+	
+	public List<Automobile> getAuto(String sede) throws SQLException{
+		return dao.getAuto(sede);
+	}
+	
+	public List<Automobile> getAutoDisponibili(String nomeFascia,String sede) throws SQLException{
+		return dao.getAutoDisponibili(nomeFascia, sede);
+	}
+	
 	
 }

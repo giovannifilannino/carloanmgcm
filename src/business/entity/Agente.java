@@ -1,5 +1,10 @@
 package business.entity;
 
+import integration.AgenteDAO;
+
+import java.sql.SQLException;
+import java.util.List;
+
 import javafx.beans.property.SimpleStringProperty;
 
 public class Agente {
@@ -9,6 +14,7 @@ public class Agente {
 	private SimpleStringProperty cognome;
 	private SimpleStringProperty user;
 	private SimpleStringProperty password;
+	private AgenteDAO dao;
 	
 	
 	public Agente(String agenzia, String nome, String cognome, String username){
@@ -59,6 +65,20 @@ public class Agente {
 
 	public void setPassword(String password2) {
 		password.set(password2);
+	}
+	
+
+	public List<Agente> getAll() throws SQLException{
+		return dao.getAll();
+		
+	}
+	
+	public Agente read(String usernameAgente) throws SQLException{
+		return dao.read(usernameAgente);
+	}
+	
+	public boolean checkcredenziali(String usernameA,String passwordA) throws SQLException{
+		return dao.checkCredenziali(usernameA, passwordA);
 	}
 	
 }

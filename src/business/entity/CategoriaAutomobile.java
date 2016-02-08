@@ -1,9 +1,15 @@
 package business.entity;
+import java.sql.SQLException;
+import java.util.List;
+
+import integration.CategoriaDAO;
 
 public class CategoriaAutomobile {
 	private double prezzoBase;
 	private double prezzoIllimitato;
 	private Categoria categoria;
+	private CategoriaDAO categoriadao;
+	
 	
 	public CategoriaAutomobile(Categoria c){
 		setPrezzo(c);
@@ -112,4 +118,13 @@ public class CategoriaAutomobile {
 		}
 		return output;
 	}
+	public CategoriaAutomobile read(String ID) throws SQLException {
+		return categoriadao.read(ID);
+	}
+	
+	public List<CategoriaAutomobile> getAll() throws SQLException {
+		return categoriadao.getAll();
+	}
 }
+	
+
