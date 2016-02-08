@@ -118,6 +118,7 @@ public class CategoriaAutomobile {
 		}
 		return output;
 	}
+	//TRANSFER OBJ
 	public CategoriaAutomobile read(String ID) throws SQLException {
 		return categoriadao.read(ID);
 	}

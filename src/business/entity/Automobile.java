@@ -88,6 +88,7 @@ public class Automobile {
 		}
 	}
 	
+	//TRANSFER OBJ
 	public List<Automobile> getAuto(String sede) throws SQLException{
 		return dao.getAuto(sede);
 	}

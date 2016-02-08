@@ -67,6 +67,7 @@ public class Cliente {
 	public Cliente(String nome){
 		this.nomeCliente = nome;
 	}
+	//TRANSFER OBJ
 	
 	public String getNome(){
 		return nomeCliente;

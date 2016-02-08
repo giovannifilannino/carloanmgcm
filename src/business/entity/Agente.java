@@ -66,7 +66,7 @@ public class Agente {
 	public void setPassword(String password2) {
 		password.set(password2);
 	}
-	
+	//TRANSFER OBJ
 
 	public List<Agente> getAll() throws SQLException{
 		return dao.getAll();

@@ -35,7 +35,7 @@ public class Azienda {
 	public void setNome_azienda(String nome_azienda) {
 		this.nome_azienda.set(nome_azienda);;
 	}
-
+	//TRANSFER OBJ
 
 	public String getCitta() {
 		return citta;

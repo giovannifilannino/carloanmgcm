@@ -248,6 +248,7 @@ public class Contratto {
 		this.categoria = new SimpleStringProperty("");
 		this.data_inizio = null;
 	}
+	
 
 	public String getAgenzia() {
 		return agenzia.get();
@@ -264,7 +265,7 @@ public class Contratto {
 	public void setCodNoleggio(int codNoleggio) {
 		this.codNoleggio = codNoleggio;
 	}
-	
+	//TRANSFER OBJ
 	public Contratto read(String ID) throws SQLException {
 		return contrattodao.read(ID);
 	}
