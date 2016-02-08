@@ -10,12 +10,12 @@ import business.entity.Agente;
 import business.entity.Automobile;
 
 public class AutomobileDAO extends DAOAB<Automobile>{
-	private final String INSERT_QUERY="INSERT INTO Auto VALUES(?,?,?,?,?,1)";
-	private final String GET_AUTO_QUERY="SELECT * FROM Auto WHERE CodAgenzia=?";
-	private final String GET_DISP_AUTO_QUERY="SELECT NomeAuto,targa "
+	private static final String INSERT_QUERY="INSERT INTO Auto VALUES(?,?,?,?,?,1)";
+	private static final String GET_AUTO_QUERY="SELECT * FROM Auto WHERE CodAgenzia=?";
+	private final static String GET_DISP_AUTO_QUERY="SELECT NomeAuto,targa "
 			+ "FROM Auto "
 			+ "WHERE CodAgenzia=? AND CodFascia=? AND Disponibile=1";
-	private final String AUTO_FUORI_QUERY="UPDATE Auto SET Disponibile=0 WHERE NomeAuto=?";
+	private final static String AUTO_FUORI_QUERY="UPDATE Auto SET Disponibile=0 WHERE NomeAuto=?";
 
 	@Override
 	public void create(Automobile entity) throws SQLException {
@@ -71,7 +71,7 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 		List<Automobile> lista= getLista(risultato);
 		return lista;
 	}
-	public void setAutoFuori(String nomeAuto) throws SQLException{
+	public static void setAutoFuori(String nomeAuto) throws SQLException{
 		PreparedStatement prepStat=connessione.prepareStatement(AUTO_FUORI_QUERY);
 		prepStat.setString(1, nomeAuto);
 		prepStat.executeUpdate();

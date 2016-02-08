@@ -9,6 +9,7 @@ public class CategoriaAutomobile {
 		setPrezzo(c);
 		categoria = c;
 	}
+	public CategoriaAutomobile(){}
 	
 	public CategoriaAutomobile(String c){
 		switch(c){

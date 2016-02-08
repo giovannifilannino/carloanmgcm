@@ -20,6 +20,8 @@ public class Contratto {
 	private SimpleStringProperty restituzione;
 	private SimpleDoubleProperty acconto;
 	private SimpleStringProperty stato;
+	private SimpleStringProperty agenzia;
+	private int codNoleggio;
 	
 	private float preventivo_value;
 	
@@ -199,6 +201,9 @@ public class Contratto {
 			stato.set("confermato");
 		}
 	}
+	public void setConferma(String valore){
+		stato.set(valore);
+	}
 	
 	public void chiudiContratto(){
 		if(stato.get().equalsIgnoreCase("confermato")){
@@ -237,5 +242,21 @@ public class Contratto {
 		this.stato = new SimpleStringProperty("non confermato");
 		this.categoria = new SimpleStringProperty("");
 		this.data_inizio = null;
+	}
+
+	public String getAgenzia() {
+		return agenzia.get();
+	}
+
+	public void setAgenzia(Azienda agenzia) {
+		this.agenzia.set(agenzia.getNome_azienda());
+	}
+
+	public int getCodNoleggio() {
+		return codNoleggio;
+	}
+
+	public void setCodNoleggio(int codNoleggio) {
+		this.codNoleggio = codNoleggio;
 	}
 }

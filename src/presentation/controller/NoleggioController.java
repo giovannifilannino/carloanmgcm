@@ -1,6 +1,7 @@
 package presentation.controller;
 
 import integration.CarLoanDB;
+import integration.ClienteDAO;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -107,6 +108,8 @@ public class NoleggioController extends SameStageController{
 		}
 	}
 	
+	ClienteDAO elemento=new ClienteDAO();
+	
 	@FXML
 	public void avanti(ActionEvent e){
 		System.out.println();
@@ -129,7 +132,7 @@ public class NoleggioController extends SameStageController{
 			super.getContratto().setData_inizio(inizio_noleggio.getValue());
 			super.getContratto().setData_fine(fine_noleggio.getValue());
 			super.getContratto().setPrelievo(new Azienda(agenzia.getValue().toString()));
-			super.getContratto().setCliente(new Cliente(LoginController.username));
+			super.getContratto().setCliente(elemento.read(LoginController.username).getNome());
 			loadPrenotazioneAuto();
 		}
 		if(errore2){

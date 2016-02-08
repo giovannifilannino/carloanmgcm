@@ -76,6 +76,7 @@ public class AgenteDAO extends DAOAB<Agente>{
 			return false;
 		}
 	}
+	
 	private List<Agente> getLista(ResultSet resultSet) throws SQLException{
 		List<Agente> agenti=new LinkedList<Agente>();
 		
