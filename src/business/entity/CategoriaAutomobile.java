@@ -123,6 +123,20 @@ public class CategoriaAutomobile {
 		return categoriadao.read(ID);
 	}
 	
+	public void create(CategoriaAutomobile entity) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void update(CategoriaAutomobile entity) {
+		categoriadao.update(entity);
+		
+	}
+
+	public void delete(String ID) throws SQLException {
+		categoriadao.delete(ID);
+	}
+	
 	public List<CategoriaAutomobile> getAll() throws SQLException {
 		return categoriadao.getAll();
 	}

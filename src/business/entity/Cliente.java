@@ -1,4 +1,5 @@
 package business.entity;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import integration.ClienteDAO;
@@ -67,12 +68,25 @@ public class Cliente {
 	public Cliente(String nome){
 		this.nomeCliente = nome;
 	}
-	//TRANSFER OBJ
 	
 	public String getNome(){
 		return nomeCliente;
 	}
 	
+	//TRANSFER OBJ
+	
+	public void create(Cliente entity) throws SQLException {
+		clientedao.create(entity);
+		}
+	public void update(Cliente entity) {
+		clientedao.update(entity);
+		
+	}
+
+	public void delete(String ID) throws SQLException {
+		clientedao.delete(ID);
+		
+	}
 	public Cliente read(String usernameC) throws SQLException {
 		return clientedao.read(usernameC);
 	}

@@ -15,7 +15,7 @@ public class Automobile {
 	private SimpleStringProperty agenzia;
 	private SimpleStringProperty categoria;
 	private SimpleStringProperty disponibile;
-	private AutomobileDAO dao;
+	private static AutomobileDAO dao;
 	
 	public Automobile(String modello_auto, String targa, int cilindrata, String agenzia, String categoria){
 		this.modello_auto = new SimpleStringProperty(modello_auto);
@@ -89,6 +89,32 @@ public class Automobile {
 	}
 	
 	//TRANSFER OBJ
+	
+	public void create(Automobile entity) throws SQLException {
+		dao.create(entity);
+	}
+	
+	public void update(Automobile entity) {
+		dao.update(entity);		
+	}
+
+	public void delete(String ID) throws SQLException {
+		dao.delete(ID);
+		
+	}
+
+	public Automobile read(String sede) throws SQLException {
+		return dao.read(sede);
+	}
+	
+	public List<Automobile> getAll() throws SQLException {
+		return dao.getAll();
+	}
+	
+	public static void setAutoFuori(String nomeAuto) throws SQLException{
+		dao.setAutoFuori(nomeAuto);
+	}
+	
 	public List<Automobile> getAuto(String sede) throws SQLException{
 		return dao.getAuto(sede);
 	}
