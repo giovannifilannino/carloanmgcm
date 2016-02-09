@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import business.entity.Automobile;
+import business.entity.Azienda;
 
 public class AutomobileDAO extends DAOAB<Automobile>{
 	private static final String INSERT_QUERY="INSERT INTO Auto VALUES(?,?,?,?,?,1)";
@@ -17,9 +18,10 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 			+ "FROM Auto "
 			+ "WHERE CodAgenzia=? AND CodFascia=? AND Disponibile=1";
 	private final static String AUTO_FUORI_QUERY="UPDATE Auto SET Disponibile=0 WHERE NomeAuto=?";
-
+	private static final String READ_QUERY="SELECT * FROM Auto WHERE targa=?";
+	
 	@Override
-	public void create(Automobile entity) throws SQLException {
+	public boolean create(Automobile entity) throws SQLException {
 		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(INSERT_QUERY);
 		String targa=entity.getTarga();
@@ -33,6 +35,7 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 		String codFascia=entity.getCategoria();
 		prepStat.setString(5, codFascia);
 		prepStat.executeUpdate();
+		return false;
 	}
 
 	@Override
@@ -48,8 +51,13 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 	}
 
 	@Override
-	public Automobile read(String sede) throws SQLException {
-		return null;
+	public Automobile read(String targa) throws SQLException {
+		Connection connessione=MySqlDaoFactory.connetti();
+		PreparedStatement prepStat=connessione.prepareStatement(READ_QUERY);
+		prepStat.setString(1,targa);
+		ResultSet risultato =prepStat.executeQuery();
+		List<Automobile> lista =getLista(risultato);
+		return lista.get(FIRST);
 	}
 
 	@Override

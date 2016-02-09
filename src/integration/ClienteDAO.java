@@ -16,7 +16,7 @@ public class ClienteDAO extends DAOAB<Cliente>{
 	private static final String CHECK_QUERY="SELECT UsernameC FROM Clienti WHERE UsernameC=? AND PasswordC=?";
 
 	@Override
-	public void create(Cliente entity) throws SQLException {
+	public boolean create(Cliente entity) throws SQLException {
 		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(INSERT_QUERY);
 		String usernameC=entity.getUsernameCliente();
@@ -32,6 +32,7 @@ public class ClienteDAO extends DAOAB<Cliente>{
 		String numTelefono=entity.getNumTelefono();
 		prepStat.setString(6, numTelefono);
 		prepStat.executeUpdate();
+		return false;
 		
 	}
 

@@ -21,7 +21,7 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 	private final static String GET_NOLEGGIOC_QUERY="SELECT * FROM Noleggi WHERE UsernameC=?";
 	
 	@Override
-	public void create(Contratto entity) throws SQLException {
+	public boolean create(Contratto entity) throws SQLException {
 		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat = connessione.prepareStatement(INSERT_QUERY);
 		prepStat.setInt(1, contatore);
@@ -50,7 +50,7 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 		prepStat.setString(13, "NON CONFERMATO");
 		prepStat.executeUpdate();
 		AutomobileDAO.setAutoFuori(nomeAuto);
-		
+		return false;
 	}
 
 	@Override
@@ -138,9 +138,8 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 			elemento.setRestituzione(a.read(cittaConsegna));
 			Double acconto=resultSet.getDouble("Acconto");
 			elemento.setAcconto(acconto);
-			String automobile=resultSet.getString("NomeAuto");
 			AutomobileDAO auto=new AutomobileDAO();
-			elemento.setAuto(auto.read(automobile));
+			elemento.setAuto(auto.read(Targa));
 			String chiuso=resultSet.getString("chiuso");
 			elemento.setConferma(chiuso);
 			contratti.add(elemento);
