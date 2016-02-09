@@ -19,6 +19,7 @@ public class Agente {
 	
 	
 	public Agente(String agenzia, String nome, String cognome, String username){
+		dao = new AgenteDAO();
 		this.agenzia = new SimpleStringProperty(agenzia);
 		this.nome = new SimpleStringProperty(nome);
 		this.cognome = new SimpleStringProperty(cognome);

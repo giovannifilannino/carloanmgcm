@@ -43,13 +43,14 @@ public class InserimentoAutoController extends StageController{
 	Automobile auto = new Automobile();
 	
 	ObservableList<Azienda> agenzielist = FXCollections.observableArrayList();
-	ObservableList<Azienda> categorielist = FXCollections.observableArrayList();
+	ObservableList<CategoriaAutomobile> categorielist = FXCollections.observableArrayList();
 	
 	@FXML
 	public void initialize() throws SQLException{
-		
-		agenzia.setItems((ObservableList<Azienda>) az.getAll());
-		categorie.setItems( (ObservableList<CategoriaAutomobile>) ca.getAll());
+		agenzielist.addAll(az.getAll());
+		categorielist.addAll(ca.getAll());
+		agenzia.setItems(agenzielist);
+		categorie.setItems(categorielist);
 	}
 	
 	

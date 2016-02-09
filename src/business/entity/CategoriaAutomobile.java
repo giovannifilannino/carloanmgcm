@@ -12,12 +12,16 @@ public class CategoriaAutomobile {
 	
 	
 	public CategoriaAutomobile(Categoria c){
+		categoriadao = new CategoriaDAO();
 		setPrezzo(c);
 		categoria = c;
 	}
-	public CategoriaAutomobile(){}
+	public CategoriaAutomobile(){
+		categoriadao = new CategoriaDAO();
+	}
 	
 	public CategoriaAutomobile(String c){
+		categoriadao = new CategoriaDAO();
 		switch(c){
 		case "Economy":
 			categoria = Categoria.ECONOMY;

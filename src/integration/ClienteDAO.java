@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -84,7 +85,7 @@ public class ClienteDAO extends DAOAB<Cliente>{
 	
 	
 	private List<Cliente> getLista(ResultSet resultSet) throws SQLException{
-		List<Cliente> clienti=new LinkedList<Cliente>();
+		ArrayList<Cliente> clienti=new ArrayList<Cliente>();
 		
 		while(resultSet.next()){
 			Cliente elemento =new Cliente();

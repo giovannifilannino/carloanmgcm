@@ -44,6 +44,8 @@ public class Contratto {
 		this.restituzione = new SimpleStringProperty(restituzione);
 		this.acconto = new SimpleDoubleProperty(acconto);
 		this.stato = new SimpleStringProperty("non confermato");
+		agenzia = new SimpleStringProperty("");
+		contrattodao = new ContrattoDAO();
 	}
 
 	public Contratto(){
@@ -57,6 +59,8 @@ public class Contratto {
 		this.acconto = new SimpleDoubleProperty(0.0);
 		this.stato = new SimpleStringProperty("non confermato");
 		this.categoria = new SimpleStringProperty("");
+		agenzia = new SimpleStringProperty("");
+		contrattodao = new ContrattoDAO();
 	}
 	
 	private String setNoleggioValue(boolean noleggio){

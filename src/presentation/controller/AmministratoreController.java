@@ -1,22 +1,18 @@
 package presentation.controller;
 
 
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.Optional;
-
 import presentation.FrontController;
 import presentation.Main;
 import presentation.StageController;
 import business.entity.Agente;
 import business.entity.Azienda;
-import integration.CarLoanDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -24,7 +20,6 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
 public class AmministratoreController extends StageController{
 
@@ -58,23 +53,23 @@ public class AmministratoreController extends StageController{
 	ImageView logo;
 	
 	Image logopic = new Image(Main.class.getResourceAsStream("controller/utility/logo.png"));
-	CarLoanDB db = new CarLoanDB();
+	Azienda az;
+	Agente ag;
+	
 	
 	//lista agenzie
 	static ObservableList<Azienda> aziende = FXCollections.observableArrayList();
 	static ObservableList<Agente> agente = FXCollections.observableArrayList();
 	
-	ResultSet agenzieset;
-	ResultSet agentiset;
+	
 	
 	
 	public void initialize() throws SQLException{
+		az = new Azienda();
+		ag = new Agente();
+		aziende.addAll(az.getAll());
+		agente.addAll(ag.getAll());
 		logo.setImage(logopic);
-		
-		agenzieset = db.getAgenzie();
-		agentiset = db.getAgenti();
-		setAgenzie();
-		setAgenti();
 		fillTable();
 	}
 	
@@ -87,23 +82,6 @@ public class AmministratoreController extends StageController{
 		agenti_agenzia.setCellValueFactory(new PropertyValueFactory<Agente,String>("agenzia"));
 	}
 	
-	private void setAgenzie() throws SQLException{
-		while(agenzieset.next()){
-			aziende.add(new Azienda(agenzieset.getString("nomeagenzia")));
-		}
-	}
-	
-	
-	private void setAgenti() throws SQLException{
-		while(agentiset.next()){
-			String nome = agentiset.getString("nomeagente");
-			String cognome = agentiset.getString("cognomeagente");
-			String codagenzia = agentiset.getString("codagenzia");
-			String usern = agentiset.getString("usernamea");
-			agente.add(new Agente(codagenzia,nome,cognome,usern));
-		}
-	}
-	
 	@FXML
 	public void elimina_agente(ActionEvent e) throws SQLException{
 	
@@ -112,7 +90,7 @@ public class AmministratoreController extends StageController{
 		agenti_table.getItems().remove(indice);
 		
 		String user = agente.getUser();
-		db.removeAgente(user);
+		ag.delete(user);
 		
 	}
 	
@@ -129,7 +107,7 @@ public class AmministratoreController extends StageController{
 		if(result.isPresent()){
 			Azienda nuova = new Azienda(result.get());
 			aziende.add(nuova);
-			db.setAgenzia(nuova.getNome_azienda(), "Puglia");
+			az.create(nuova);
 		}
 	}
 	
@@ -140,7 +118,7 @@ public class AmministratoreController extends StageController{
 		agenzie_table.getItems().remove(indice);
 		
 		String citta = agenzia.getNome_azienda();
-		db.removeAgenzia(citta);
+		az.delete(citta);
 		
 		for(Agente a : agente){
 			if(a.getAgenzia().equals(citta)){

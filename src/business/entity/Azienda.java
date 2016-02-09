@@ -1,5 +1,6 @@
 package business.entity;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import integration.AziendaDAO;
@@ -8,24 +9,25 @@ import javafx.beans.property.SimpleStringProperty;
 public class Azienda {
 	
 	private SimpleStringProperty nome_azienda;
-	private SimpleStringProperty nome;
 	private SimpleStringProperty citta;
 	private AziendaDAO aziendadao;
 	
 	
 	public Azienda(String nome_azienda2){
+		aziendadao = new AziendaDAO();
 		nome_azienda = new SimpleStringProperty(nome_azienda2);
-		nome.set(nome_azienda2);
+		
 	}
 	public Azienda(){
+		aziendadao = new AziendaDAO();
 		nome_azienda=new SimpleStringProperty();
-		nome=new SimpleStringProperty();
+		
 		citta=new SimpleStringProperty();
 	}
 	
 	
 	public String toString(){
-		return nome.get();
+		return nome_azienda.get();
 	}
 
 

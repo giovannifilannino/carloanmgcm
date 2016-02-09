@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -83,7 +84,7 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 	
 	
 	private List<Automobile> getLista(ResultSet resultSet) throws SQLException{
-		List<Automobile> automobili=new LinkedList<Automobile>();
+		ArrayList<Automobile> automobili=new ArrayList<Automobile>();
 		
 		while(resultSet.next()){
 			Automobile elemento =new Automobile();

@@ -1,17 +1,9 @@
 package presentation.controller;
 
-
-import integration.CarLoanDB;
-
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 import presentation.FrontController;
 import presentation.Main;
 import presentation.StageController;
-import business.entity.Automobile;
-import business.entity.Cliente;
 import business.entity.Contratto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,7 +16,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
 public class ClientiController extends StageController{
 
@@ -55,44 +46,27 @@ public class ClientiController extends StageController{
 	@FXML
 	ImageView logo;
 	
+	Contratto con = new Contratto();
+	
 	FrontController control = FrontController.getIstance();
 	
 	Image logopic = new Image(Main.class.getResourceAsStream("controller/utility/logo.png"));
 	
 	static boolean fromClient = false;
 	
-	CarLoanDB db = new CarLoanDB();
-	ResultSet contratti;
-	
 	final static ObservableList<Contratto> noleggi_cliente = FXCollections.observableArrayList();
 	
 	@FXML
 	public void initialize() throws SQLException{
-		
 		nome.setText(LoginController.getName());
 		cognome.setText(LoginController.getCognome());
-		setContratti();
+		String banana = LoginController.username;
+		noleggi_cliente.addAll(con.getNoleggiC(LoginController.username));
 		setContrattiTable();
 		logo.setImage(logopic);
 	}
 	
-	private void setContratti() throws SQLException{
-		contratti = db.getNoleggiC(LoginController.username);
-		while(contratti.next()){
-			String targa = contratti.getString("targa");
-			String username = contratti.getString("usernamec");
-			Boolean tipokm = getValue(contratti.getInt("tipoKilometraggio"));
-			String nomeauto = contratti.getString("nomeauto");
-			String stato = contratti.getString("chiuso");
-			Contratto con = new Contratto();
-			con.setTarga(targa);
-			con.setCliente(new Cliente(username));
-			con.setChilometraggio_limitato(tipokm);
-			con.setAuto(new Automobile(nomeauto));
-			con.setStato(stato);
-			noleggi_cliente.add(con);
-		}
-	}
+
 	
 	private void setContrattiTable(){
 		storico_noleggi.setItems(noleggi_cliente);
@@ -100,7 +74,6 @@ public class ClientiController extends StageController{
 		targa.setCellValueFactory(new PropertyValueFactory<Contratto,String>("targa"));
 		km.setCellValueFactory(new PropertyValueFactory<Contratto,String>("chilometraggio_limitato"));
 		stato.setCellValueFactory(new PropertyValueFactory<Contratto,String>("stato"));
-		
 	}
 	
 	public void setData(String nome_cliente, String cognome_cliente){

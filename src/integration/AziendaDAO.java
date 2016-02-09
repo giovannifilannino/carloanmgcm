@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,6 +46,7 @@ public class AziendaDAO extends DAOAB<Azienda> {
 	public Azienda read(String ID) throws SQLException {
 		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(READ_QUERY);
+		prepStat.setString(1,ID);
 		ResultSet risultato =prepStat.executeQuery();
 		List<Azienda> lista =getLista(risultato);
 		return lista.get(FIRST);
@@ -61,7 +62,7 @@ public class AziendaDAO extends DAOAB<Azienda> {
 	}
 	
 	private List<Azienda> getLista(ResultSet resultSet) throws SQLException{
-		List<Azienda> aziende=new LinkedList<Azienda>();
+		ArrayList<Azienda> aziende=new ArrayList<Azienda>();
 		while(resultSet.next()){
 			Azienda elemento =new Azienda();
 			String NomeAgente=resultSet.getString("NomeAgenzia");

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -110,7 +111,7 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 	}
 	
 	private List<Contratto> getLista(ResultSet resultSet) throws SQLException{
-		List<Contratto> contratti=new LinkedList<Contratto>();
+		ArrayList<Contratto> contratti=new ArrayList<Contratto>();
 		while(resultSet.next()){
 			Contratto elemento =new Contratto();
 			int CodNoleggio=resultSet.getInt("CodNoleggio");

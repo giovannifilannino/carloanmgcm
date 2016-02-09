@@ -164,7 +164,6 @@ public class NoleggioController extends SameStageController{
 	public void closeStage() {
 		Stage stage = (Stage) esci_btn.getScene().getWindow();
 		stage.close();
-		
 	}
 
 }
