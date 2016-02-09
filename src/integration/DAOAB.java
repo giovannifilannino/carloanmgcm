@@ -28,10 +28,10 @@ public abstract class DAOAB<Entity> implements DAO<Entity>{
     public abstract boolean create(Entity entity) throws SQLException;
 
     @Override
-    public abstract void update(Entity entity);
+    public abstract boolean update(Entity entity);
 
     @Override
-    public abstract void delete(String ID) throws SQLException;
+    public abstract boolean delete(String ID) throws SQLException;
 
     @Override
     public abstract Entity read(String ID)  throws SQLException;

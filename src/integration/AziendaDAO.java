@@ -16,14 +16,15 @@ public class AziendaDAO extends DAOAB<Azienda> {
 	private static final String DELETE_QUERY="DELETE FROM Agenzie WHERE NomeAgenzia=?";
 	private static final String READ_QUERY="SELECT * FROM Agenzie WHERE NomeAgenzia=?";
 	@Override
-	public void create(Azienda entity) throws SQLException {
+	public boolean create(Azienda entity) throws SQLException {
+		boolean b= false;
 		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(INSERT_QUERY);
 		String nomeAgenzia=entity.getNome_azienda();
 		prepStat.setString(1, nomeAgenzia);
 		String cittaAgenzia=entity.getCitta();
 		prepStat.setString(2, cittaAgenzia);
-		prepStat.executeUpdate();
+		return b=prepStat.executeUpdate()==1;
 		
 	}
 
@@ -34,11 +35,12 @@ public class AziendaDAO extends DAOAB<Azienda> {
 	}
 
 	@Override
-	public void delete(String nomeAgenzia) throws SQLException {
+	public boolean delete(String nomeAgenzia) throws SQLException {
+		boolean b= false;
 		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(DELETE_QUERY);
 		prepStat.setString(1, nomeAgenzia);
-		prepStat.executeUpdate();
+		return b=prepStat.executeUpdate()==1;
 		
 	}
 
