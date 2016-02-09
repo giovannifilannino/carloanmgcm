@@ -1,6 +1,8 @@
 package business.entity;
+import integration.AutomobileDAO;
 import integration.ContrattoDAO;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -266,6 +268,21 @@ public class Contratto {
 		this.codNoleggio = codNoleggio;
 	}
 	//TRANSFER OBJ
+	
+	public void create(Contratto entity) throws SQLException {
+		contrattodao.create(entity);
+		
+	}
+
+	public void update(Contratto entity) {
+		contrattodao.update(entity);
+		
+	}
+
+	public void delete(String ID) throws SQLException {
+		contrattodao.delete(ID);
+		
+	}
 	public Contratto read(String ID) throws SQLException {
 		return contrattodao.read(ID);
 	}
@@ -280,5 +297,13 @@ public class Contratto {
 	
 	public List<Contratto> getNoleggiC(String usernameC) throws SQLException{
 		return contrattodao.getNoleggiC(usernameC);
+	}
+	
+	public void confermaNoleggio(String targa) throws SQLException{
+		contrattodao.confermaNoleggio(targa);
+	}
+	
+	public void chiudiNoleggio(String targa) throws SQLException{
+		contrattodao.chiudiNoleggio(targa);
 	}
 }

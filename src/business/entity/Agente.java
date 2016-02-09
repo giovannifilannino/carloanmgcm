@@ -2,6 +2,7 @@ package business.entity;
 
 import integration.AgenteDAO;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -71,6 +72,18 @@ public class Agente {
 		password.set(password2);
 	}
 	//TRANSFER OBJ
+	
+	public void create(Agente Entity) throws SQLException{
+		dao.create(Entity);
+	}
+	
+	public void update(Agente entity) {
+		dao.update(entity);
+	}
+	
+	public void delete(String usernameAgente) throws SQLException {
+		dao.delete(usernameAgente);
+	}
 
 	public List<Agente> getAll() throws SQLException{
 		return dao.getAll();
