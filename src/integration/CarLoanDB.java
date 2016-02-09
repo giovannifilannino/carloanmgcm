@@ -8,7 +8,7 @@ public class CarLoanDB {
 	public CarLoanDB(){	
 		try{
 			new com.mysql.jdbc.Driver();
-			connessione=DriverManager.getConnection("jdbc:mysql://localhost/CarLoanDB", "root", null);
+			connessione=DriverManager.getConnection("jdbc:mysql://localhost/CarLoanDB", "root", "nicoletta94");
 		}
 		catch(SQLException e){
 			e.printStackTrace();

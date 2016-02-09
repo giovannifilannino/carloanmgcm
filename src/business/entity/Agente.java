@@ -25,7 +25,11 @@ public class Agente {
 	}
 	
 	public Agente(){
-		
+		agenzia=new SimpleStringProperty();
+		nome=new SimpleStringProperty();
+		cognome=new SimpleStringProperty();
+		user=new SimpleStringProperty();
+		password=new SimpleStringProperty();
 	}
 	public String getAgenzia() {
 		return agenzia.get();
