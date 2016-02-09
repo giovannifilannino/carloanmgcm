@@ -1,12 +1,13 @@
 package presentation.controller;
 
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 
 import business.entity.Automobile;
+import business.entity.Azienda;
+import business.entity.CategoriaAutomobile;
 import presentation.StageController;
 import presentation.controller.utility.Popup;
-import integration.CarLoanDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,52 +32,38 @@ public class InserimentoAutoController extends StageController{
 	@FXML
 	TextField cilindrata;
 	@FXML
-	ComboBox<String> agenzia;
+	ComboBox<Azienda> agenzia;
 	@FXML
-	ComboBox<String> categorie;
+	ComboBox<CategoriaAutomobile> categorie;
 	@FXML
 	Button esci_btn;
 	
+	Azienda az = new Azienda();
+	CategoriaAutomobile ca = new CategoriaAutomobile();
+	Automobile auto = new Automobile();
 	
-	CarLoanDB db = new CarLoanDB();
-	ResultSet agenzieset;
-	ResultSet categorieset;
-	ObservableList<String> agenzielist = FXCollections.observableArrayList();
-	ObservableList<String> categorielist = FXCollections.observableArrayList();
+	ObservableList<Azienda> agenzielist = FXCollections.observableArrayList();
+	ObservableList<Azienda> categorielist = FXCollections.observableArrayList();
 	
 	@FXML
 	public void initialize() throws SQLException{
-		agenzieset = db.getAgenzie();
-		categorieset = db.getCategorie();
-		setAgenzie();
-		setCategorie();
-		agenzia.setItems(agenzielist);
-		categorie.setItems(categorielist);
+		
+		agenzia.setItems((ObservableList<Azienda>) az.getAll());
+		categorie.setItems( (ObservableList<CategoriaAutomobile>) ca.getAll());
 	}
 	
 	
 	@FXML
 	public void conferma(ActionEvent e) throws SQLException{
 		if(targa.getText()!=null && modello_auto.getText() != null && agenzia.getValue() != null && categorie.getValue() != null && isNumeric(cilindrata.getText())){
-			db.setAuto(targa.getText(), modello_auto.getText(), getCilindrata(cilindrata.getText()), agenzia.getValue().toString(), categorie.getValue().toString());
-			OperatoreController.auto.add(new Automobile(targa.getText(), modello_auto.getText(), getCilindrata(cilindrata.getText()), agenzia.getValue(), categorie.getValue()));
+			auto.create(new Automobile(modello_auto.getText(), targa.getText(), getCilindrata(cilindrata.getText()),agenzia.getValue().toString(), categorie.getValue().toString()));
+			OperatoreController.auto.add(new Automobile(targa.getText(), modello_auto.getText(), getCilindrata(cilindrata.getText()), agenzia.getValue().toString(), categorie.getValue().toString()));
 			closeStage();
 		} else {
 			Popup.Errore("Errore inserimento", "Non hai inserito tutti i dati");
 		}
 	}
-	
-	private void setAgenzie() throws SQLException{
-		while(agenzieset.next()){
-			agenzielist.add(agenzieset.getString("nomeagenzia"));
-		}
-	}
-	
-	private void setCategorie() throws SQLException{
-		while(categorieset.next()){
-			categorielist.add(categorieset.getString("nomefascia"));
-		}
-	}
+
 	
 	@FXML
 	public void esci(ActionEvent e){
@@ -103,9 +90,6 @@ public class InserimentoAutoController extends StageController{
 		}
 		return value;
 	}
-	
-	
-
 
 	@Override
 	public void closeStage() {

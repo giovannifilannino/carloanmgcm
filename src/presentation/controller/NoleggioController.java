@@ -132,7 +132,7 @@ public class NoleggioController extends SameStageController{
 			super.getContratto().setData_inizio(inizio_noleggio.getValue());
 			super.getContratto().setData_fine(fine_noleggio.getValue());
 			super.getContratto().setPrelievo(new Azienda(agenzia.getValue().toString()));
-			super.getContratto().setCliente(elemento.read(LoginController.username).getNome());
+			//super.getContratto().setCliente(elemento.read(LoginController.username).getNome());
 			loadPrenotazioneAuto();
 		}
 		if(errore2){
