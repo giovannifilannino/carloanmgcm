@@ -18,7 +18,8 @@ public class AgenteDAO extends DAOAB<Agente>{
 	private static final String CHECK_QUERY="SELECT UsernameA FROM Agenti WHERE UsernameA=? AND PasswordA=?";
 	
 	@Override
-	public void create(Agente entity) throws SQLException {
+	public boolean create(Agente entity) throws SQLException {
+		boolean risultato;
 		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(INSERT_QUERY);
 		String usernameAgente=entity.getNome();
@@ -31,7 +32,8 @@ public class AgenteDAO extends DAOAB<Agente>{
 		prepStat.setString(4, cognomeAgente);
 		String codAgenzia=entity.getCognome();
 		prepStat.setString(5, codAgenzia);
-		prepStat.executeUpdate();
+		risultato=prepStat.executeUpdate()==1;
+		return risultato;
 	}
 
 	@Override

@@ -25,7 +25,7 @@ public abstract class DAOAB<Entity> implements DAO<Entity>{
 		}
 	}
 	@Override
-    public abstract void create(Entity entity) throws SQLException;
+    public abstract boolean create(Entity entity) throws SQLException;
 
     @Override
     public abstract void update(Entity entity);

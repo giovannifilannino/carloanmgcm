@@ -13,9 +13,9 @@ public class CategoriaDAO extends DAOAB<CategoriaAutomobile>{
 	private static final String GET_ALL_QUERY="SELECT * FROM Fasce ";
 
 	@Override
-	public void create(CategoriaAutomobile entity) throws SQLException {
+	public boolean create(CategoriaAutomobile entity) throws SQLException {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 	@Override
