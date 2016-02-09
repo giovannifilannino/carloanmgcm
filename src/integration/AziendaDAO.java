@@ -1,13 +1,13 @@
 package integration;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+
 import java.util.LinkedList;
 import java.util.List;
 
-import business.entity.Agente;
 import business.entity.Azienda;
 public class AziendaDAO extends DAOAB<Azienda> {
 	
@@ -17,6 +17,7 @@ public class AziendaDAO extends DAOAB<Azienda> {
 	private static final String READ_QUERY="SELECT * FROM Agenzie WHERE NomeAgenzia=?";
 	@Override
 	public void create(Azienda entity) throws SQLException {
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(INSERT_QUERY);
 		String nomeAgenzia=entity.getNome_azienda();
 		prepStat.setString(1, nomeAgenzia);
@@ -34,6 +35,7 @@ public class AziendaDAO extends DAOAB<Azienda> {
 
 	@Override
 	public void delete(String nomeAgenzia) throws SQLException {
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(DELETE_QUERY);
 		prepStat.setString(1, nomeAgenzia);
 		prepStat.executeUpdate();
@@ -42,6 +44,7 @@ public class AziendaDAO extends DAOAB<Azienda> {
 
 	@Override
 	public Azienda read(String ID) throws SQLException {
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(READ_QUERY);
 		ResultSet risultato =prepStat.executeQuery();
 		List<Azienda> lista =getLista(risultato);
@@ -50,6 +53,7 @@ public class AziendaDAO extends DAOAB<Azienda> {
 
 	@Override
 	public List<Azienda> getAll() throws SQLException {
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(GET_ALL_QUERY);
 		ResultSet risultato =prepStat.executeQuery();
 		List<Azienda> lista =getLista(risultato);

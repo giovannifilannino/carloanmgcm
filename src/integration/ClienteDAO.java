@@ -1,22 +1,22 @@
 package integration;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import business.entity.Agente;
 import business.entity.Cliente;
 
 public class ClienteDAO extends DAOAB<Cliente>{
 	private static final String INSERT_QUERY="INSERT INTO Clienti VALUES(?,?,?,?,?,?)";
 	private static final String READ_QUERY="SELECT * FROM Clienti WHERE UsernameC=?";
 	private static final String CHECK_QUERY="SELECT UsernameC FROM Clienti WHERE UsernameC=? AND PasswordC=?";
-	private static final String CHECK_VALIDAZIONE_CLIENTE_QUERY="SELECT UsernameA FROM Agenti WHERE UsernameA=? AND PasswordA=?";
 
 	@Override
 	public void create(Cliente entity) throws SQLException {
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(INSERT_QUERY);
 		String usernameC=entity.getUsernameCliente();
 		prepStat.setString(1, usernameC);
@@ -48,6 +48,7 @@ public class ClienteDAO extends DAOAB<Cliente>{
 
 	@Override
 	public Cliente read(String usernameC) throws SQLException {
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(READ_QUERY);
 		prepStat.setString(1, usernameC);
 		ResultSet risultato=prepStat.executeQuery();
@@ -62,6 +63,7 @@ public class ClienteDAO extends DAOAB<Cliente>{
 	}
 	
 	public boolean checkCredenzialiClienti(String usernameC,String passwordC) throws SQLException{
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat = connessione.prepareStatement(CHECK_QUERY);
 		prepStat.setString(1, usernameC);
 		prepStat.setString(2, passwordC);

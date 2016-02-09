@@ -1,5 +1,6 @@
 package integration;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,6 +21,7 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 	
 	@Override
 	public void create(Contratto entity) throws SQLException {
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat = connessione.prepareStatement(INSERT_QUERY);
 		prepStat.setInt(1, contatore);
 		String targa=entity.getTarga();
@@ -75,6 +77,7 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 	}
 	
 	public List<Contratto> getNoleggiA(String nomeAgenzia) throws SQLException{
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(GET_NOLEGGIOA_QUERY);
 		prepStat.setString(1, nomeAgenzia);
 		ResultSet risultato =prepStat.executeQuery();
@@ -82,6 +85,7 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 		return lista;
 	}
 	public List<Contratto> getNoleggiC(String usernameC) throws SQLException{
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(GET_NOLEGGIOC_QUERY);
 		prepStat.setString(1, usernameC);
 		ResultSet risultato=prepStat.executeQuery();
@@ -90,11 +94,13 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 	}
 	
 	public void confermaNoleggio(String targa) throws SQLException{
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat1=connessione.prepareStatement(CONFERMA_QUERY);
 		prepStat1.setString(1, targa);
 		prepStat1.executeUpdate();
 	}
 	public void chiudiNoleggio(String targa) throws SQLException{
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(CHIUDI_QUERY1);
 		prepStat.setString(1, targa);
 		prepStat.executeUpdate();

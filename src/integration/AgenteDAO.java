@@ -1,5 +1,6 @@
 package integration;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ public class AgenteDAO extends DAOAB<Agente>{
 	
 	@Override
 	public void create(Agente entity) throws SQLException {
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(INSERT_QUERY);
 		String usernameAgente=entity.getNome();
 		prepStat.setString(1, usernameAgente);
@@ -39,6 +41,7 @@ public class AgenteDAO extends DAOAB<Agente>{
 
 	@Override
 	public void delete(String usernameAgente) throws SQLException {
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(DELETE_QUERY);
 		prepStat.setString(1, usernameAgente);
 		prepStat.executeUpdate();
@@ -47,6 +50,7 @@ public class AgenteDAO extends DAOAB<Agente>{
 
 	@Override
 	public Agente read(String usernameAgente) throws SQLException {
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(READ_QUERY);
 		prepStat.setString(1, usernameAgente);
 		ResultSet risultato=prepStat.executeQuery();
@@ -57,6 +61,7 @@ public class AgenteDAO extends DAOAB<Agente>{
 
 	@Override
 	public List<Agente> getAll() throws SQLException {
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(GET_ALL_QUERY);
 		ResultSet risultato=prepStat.executeQuery();
 		List<Agente> lista=getLista(risultato);
@@ -64,6 +69,7 @@ public class AgenteDAO extends DAOAB<Agente>{
 	}
 	
 	public boolean checkCredenziali(String usernameA,String passwordA) throws SQLException{
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(CHECK_QUERY);
 		prepStat.setString(1, usernameA);
 		prepStat.setString(2, passwordA);

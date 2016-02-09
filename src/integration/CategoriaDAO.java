@@ -1,13 +1,11 @@
 package integration;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-
-import business.entity.Agente;
-import business.entity.Azienda;
 import business.entity.Categoria;
 import business.entity.CategoriaAutomobile;
 
@@ -40,6 +38,7 @@ public class CategoriaDAO extends DAOAB<CategoriaAutomobile>{
 
 	@Override
 	public List<CategoriaAutomobile> getAll() throws SQLException {
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(GET_ALL_QUERY);
 		ResultSet risultato=prepStat.executeQuery();
 		List<CategoriaAutomobile> lista=getLista(risultato);

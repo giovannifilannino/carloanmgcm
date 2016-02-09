@@ -1,12 +1,12 @@
 package integration;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import business.entity.Agente;
 import business.entity.Automobile;
 
 public class AutomobileDAO extends DAOAB<Automobile>{
@@ -19,6 +19,7 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 
 	@Override
 	public void create(Automobile entity) throws SQLException {
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(INSERT_QUERY);
 		String targa=entity.getTarga();
 		prepStat.setString(1, targa);
@@ -57,6 +58,7 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 	}
 	
 	public List<Automobile> getAuto(String sede) throws SQLException{
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(GET_AUTO_QUERY);
 		prepStat.setString(1, sede);
 		ResultSet risultato=prepStat.executeQuery();
@@ -64,6 +66,7 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 		return lista;
 	}
 	public List<Automobile> getAutoDisponibili(String nomeFascia,String sede) throws SQLException{
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(GET_DISP_AUTO_QUERY);
 		prepStat.setString(1, sede);
 		prepStat.setString(2, nomeFascia);
@@ -72,6 +75,7 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 		return lista;
 	}
 	public static void setAutoFuori(String nomeAuto) throws SQLException{
+		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(AUTO_FUORI_QUERY);
 		prepStat.setString(1, nomeAuto);
 		prepStat.executeUpdate();
