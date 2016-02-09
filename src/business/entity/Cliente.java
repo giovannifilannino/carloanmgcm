@@ -15,7 +15,9 @@ public class Cliente {
 	private ClienteDAO clientedao;
 	
 	
-	public Cliente(){}
+	public Cliente(){
+		
+	}
 	
 	public String getNomeCliente() {
 		return nomeCliente;

@@ -18,7 +18,7 @@ public class Azienda {
 		nome = nome_azienda2;
 	}
 	public Azienda(){
-		
+		nome_azienda=new SimpleStringProperty();
 	}
 	
 	

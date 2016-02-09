@@ -26,6 +26,12 @@ public class Automobile {
 		this.disponibile = new SimpleStringProperty("disponibile");
 	}
 	public Automobile(){
+		modello_auto=new SimpleStringProperty();
+		targa=new SimpleStringProperty();
+		cilindrata=new SimpleIntegerProperty();
+		agenzia=new SimpleStringProperty();
+		categoria=new SimpleStringProperty();
+		disponibile=new SimpleStringProperty();
 		
 	}
 	
