@@ -71,6 +71,7 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 		List<Automobile> lista= getLista(risultato);
 		return lista;
 	}
+	
 	public List<Automobile> getAutoDisponibili(String nomeFascia,String sede) throws SQLException{
 		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(GET_DISP_AUTO_QUERY);

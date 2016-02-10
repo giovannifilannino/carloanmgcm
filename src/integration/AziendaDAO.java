@@ -69,8 +69,6 @@ public class AziendaDAO extends DAOAB<Azienda> {
 			Azienda elemento =new Azienda();
 			String NomeAgente=resultSet.getString("NomeAgenzia");
 			elemento.setNome_azienda(NomeAgente);
-			String CittaAgenzia=resultSet.getString("CittaAgenzia");
-			elemento.setCitta(CittaAgenzia);
 			aziende.add(elemento);
 		}
 		return aziende;
