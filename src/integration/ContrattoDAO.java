@@ -40,9 +40,9 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 		LocalDate fineNo=entity.getData_fine();
 		prepStat.setString(8, fineNo.toString());
 		Azienda cittaRitiro=entity.getPrelievo();
-		prepStat.setString(9, cittaRitiro.getCitta());
+		prepStat.setString(9, cittaRitiro.getNome_azienda());
 		Azienda cittaConsegna=entity.getRestituzione();
-		prepStat.setString(10, cittaConsegna.getCitta());
+		prepStat.setString(10, cittaConsegna.getNome_azienda());
 		Double acconto=entity.getAcconto();
 		prepStat.setDouble(11, acconto);
 		String nomeAuto=entity.getAuto();
@@ -139,14 +139,13 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 			elemento.setPrelievo(ritiro);
 			String cittaConsegna=resultSet.getString("CittaConsegna");
 			Azienda consegna=new Azienda();
-			consegna.setNome_azienda(cittaRitiro);
+			consegna.setNome_azienda(cittaConsegna);
 			elemento.setPrelievo(consegna);
 			elemento.setRestituzione(consegna);
 			Double acconto=resultSet.getDouble("Acconto");
 			elemento.setAcconto(acconto);
-			String automobile=resultSet.getString("NomeAuto");
 			AutomobileDAO auto=new AutomobileDAO();
-			elemento.setAuto(auto.read(automobile));
+			elemento.setAuto(auto.read(Targa));
 			String chiuso=resultSet.getString("chiuso");
 			elemento.setConferma(chiuso);
 			contratti.add(elemento);
