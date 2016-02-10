@@ -29,9 +29,9 @@ public class AziendaDAO extends DAOAB<Azienda> {
 	}
 
 	@Override
-	public void update(Azienda entity) {
+	public boolean update(Azienda entity) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 	@Override
