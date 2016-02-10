@@ -11,7 +11,7 @@ import java.util.List;
 import business.entity.Azienda;
 public class AziendaDAO extends DAOAB<Azienda> {
 	
-	private static final String INSERT_QUERY="INSERT INTO Agenzie VALUES(?,?)";
+	private static final String INSERT_QUERY="INSERT INTO Agenzie VALUES(?)";
 	private static final String GET_ALL_QUERY="SELECT * FROM Agenzie ";
 	private static final String DELETE_QUERY="DELETE FROM Agenzie WHERE NomeAgenzia=?";
 	private static final String READ_QUERY="SELECT * FROM Agenzie WHERE NomeAgenzia=?";
@@ -22,8 +22,6 @@ public class AziendaDAO extends DAOAB<Azienda> {
 		PreparedStatement prepStat=connessione.prepareStatement(INSERT_QUERY);
 		String nomeAgenzia=entity.getNome_azienda();
 		prepStat.setString(1, nomeAgenzia);
-		String cittaAgenzia=entity.getCitta();
-		prepStat.setString(2, cittaAgenzia);
 		return b=prepStat.executeUpdate()==1;
 		
 	}
