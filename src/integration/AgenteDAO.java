@@ -59,7 +59,10 @@ public class AgenteDAO extends DAOAB<Agente>{
 		ResultSet risultato=prepStat.executeQuery();
 		List<Agente> lista = new LinkedList<Agente>();
 		lista=getLista(risultato);
-		return lista.get(FIRST);
+		if(lista.size()>0)
+			return lista.get(FIRST);
+		else
+			return null;
 	}
 
 	@Override

@@ -55,7 +55,10 @@ public class ClienteDAO extends DAOAB<Cliente>{
 		prepStat.setString(1, usernameC);
 		ResultSet risultato=prepStat.executeQuery();
 		List<Cliente> lista = getLista(risultato);
-		return lista.get(FIRST);
+		if(lista.size()>0)
+			return lista.get(FIRST);
+		else
+			return null;
 	}
 
 	@Override

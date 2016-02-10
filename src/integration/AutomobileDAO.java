@@ -54,7 +54,10 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 		prepStat.setString(1,targa);
 		ResultSet risultato =prepStat.executeQuery();
 		List<Automobile> lista =getLista(risultato);
-		return lista.get(FIRST);
+		if(lista.size()>0)
+			return lista.get(FIRST);
+		else
+			return null;
 	}
 
 	@Override

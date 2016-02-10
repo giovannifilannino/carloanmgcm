@@ -15,6 +15,7 @@ public class AziendaDAO extends DAOAB<Azienda> {
 	private static final String GET_ALL_QUERY="SELECT * FROM Agenzie ";
 	private static final String DELETE_QUERY="DELETE FROM Agenzie WHERE NomeAgenzia=?";
 	private static final String READ_QUERY="SELECT * FROM Agenzie WHERE NomeAgenzia=?";
+	
 	@Override
 	public boolean create(Azienda entity) throws SQLException {
 		boolean b= false;
@@ -49,7 +50,10 @@ public class AziendaDAO extends DAOAB<Azienda> {
 		prepStat.setString(1,ID);
 		ResultSet risultato =prepStat.executeQuery();
 		List<Azienda> lista =getLista(risultato);
-		return lista.get(FIRST);
+		if(lista.size()>0)
+			return lista.get(FIRST);
+		else
+			return null;
 	}
 
 	@Override
