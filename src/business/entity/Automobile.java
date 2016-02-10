@@ -24,6 +24,7 @@ public class Automobile {
 		this.agenzia = new SimpleStringProperty(agenzia);
 		this.categoria = new SimpleStringProperty(categoria);
 		this.disponibile = new SimpleStringProperty("disponibile");
+		dao = new AutomobileDAO();
 	}
 	public Automobile(){
 		modello_auto=new SimpleStringProperty();
@@ -32,7 +33,7 @@ public class Automobile {
 		agenzia=new SimpleStringProperty();
 		categoria=new SimpleStringProperty();
 		disponibile=new SimpleStringProperty();
-		
+		dao = new AutomobileDAO();
 	}
 	
 	public Automobile(String modello_auto){

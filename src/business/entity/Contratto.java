@@ -34,17 +34,19 @@ public class Contratto {
 	
 	
 	
-	public Contratto(String targa, String cliente,  String auto, boolean chilometraggio_limitato, boolean noleggio, String prelievo, String restituzione, double acconto){
+	public Contratto(String targa, String Usercliente,String agenzia, String chilometraggio_limitato, String noleggio,String inizio, String fine, String prelievo, String restituzione, double acconto, String auto){
 		this.targa = new SimpleStringProperty(targa);
-		this.cliente = new SimpleStringProperty(cliente);
+		this.cliente = new SimpleStringProperty(Usercliente);
 		this.auto = new SimpleStringProperty(auto);
-		this.chilometraggio_limitato = new SimpleStringProperty(setChilometraggioValue(chilometraggio_limitato));
-		this.noleggio = new SimpleStringProperty(setNoleggioValue(noleggio));
+		this.chilometraggio_limitato = new SimpleStringProperty((chilometraggio_limitato));
+		this.noleggio = new SimpleStringProperty((noleggio));
 		this.prelievo = new SimpleStringProperty(prelievo);
 		this.restituzione = new SimpleStringProperty(restituzione);
 		this.acconto = new SimpleDoubleProperty(acconto);
 		this.stato = new SimpleStringProperty("non confermato");
-		agenzia = new SimpleStringProperty("");
+		this.agenzia = new SimpleStringProperty(agenzia);
+		this.data_inizio = LocalDate.parse(inizio);
+		this.data_fine = LocalDate.parse(fine);
 		contrattodao = new ContrattoDAO();
 	}
 
@@ -129,6 +131,14 @@ public class Contratto {
 
 	public LocalDate getData_fine() {
 		return data_fine;
+	}
+	
+	public String getStringData_inizio() {
+		return data_inizio.toString();
+	}
+
+	public String getStringData_fine() {
+		return data_fine.toString();
 	}
 
 	public void setPrelievo(Azienda azienda_da_prelievo) {

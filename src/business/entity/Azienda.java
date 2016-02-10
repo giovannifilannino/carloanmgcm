@@ -16,7 +16,7 @@ public class Azienda {
 	public Azienda(String nome_azienda2){
 		aziendadao = new AziendaDAO();
 		nome_azienda = new SimpleStringProperty(nome_azienda2);
-		
+		citta=new SimpleStringProperty(nome_azienda2 + "banana");
 	}
 	public Azienda(){
 		aziendadao = new AziendaDAO();

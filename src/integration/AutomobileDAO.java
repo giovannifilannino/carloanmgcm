@@ -5,11 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-
 import business.entity.Automobile;
-import business.entity.Azienda;
 
 public class AutomobileDAO extends DAOAB<Automobile>{
 	private static final String INSERT_QUERY="INSERT INTO Auto VALUES(?,?,?,?,?,1)";

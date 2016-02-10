@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import business.entity.Contratto;
 import presentation.FrontController;
 import presentation.SameStageController;
 import javafx.event.ActionEvent;
@@ -41,8 +42,8 @@ public class ConfermaPrenotazioneController extends SameStageController{
 	@FXML
 	Label costo_previsto;
 	
-	CarLoanDB db = new CarLoanDB();
 	
+	Contratto con = new Contratto();
 	
 	@FXML
 	public void initialize(){
@@ -73,13 +74,14 @@ public class ConfermaPrenotazioneController extends SameStageController{
 		Optional<ButtonType> result = conferma.showAndWait();
 		if (result.get() == ButtonType.OK){
 			
+			Contratto dainviare = new Contratto(super.getContratto().getTarga(),LoginController.username,super.getContratto().getAgenzia(),  super.getContratto().getChilometraggio_limitato(), super.getContratto().getNoleggio(),super.getContratto().getStringData_inizio(),super.getContratto().getStringData_fine(),super.getContratto().getPrelievo().toString(),super.getContratto().getRestituzione().toString(), super.getContratto().getAcconto(), super.getContratto().getAuto());
 		    
 			if(OperatoreController.fromOperator){
-				db.setNoleggio(super.getContratto().getTarga(),null, super.getContratto().getPrelievo().toString(), getKm(super.getContratto().getChilometraggio_limitato()), getNoleggio(super.getContratto().getNoleggio()), super.getContratto().getData_inizio().toString(), super.getContratto().getData_fine().toString(), super.getContratto().getPrelievo().toString(), super.getContratto().getRestituzione().toString(), super.getContratto().getAcconto(), super.getContratto().getAuto());
+				con.create(dainviare);
 				OperatoreController.contratto.add(super.getContratto());
 				OperatoreController.fromOperator = false;
 			} else {
-				db.setNoleggio(super.getContratto().getTarga(),LoginController.username, super.getContratto().getPrelievo().toString(), getKm(super.getContratto().getChilometraggio_limitato()), getNoleggio(super.getContratto().getNoleggio()),super.getContratto().getData_inizio().toString(), super.getContratto().getData_fine().toString(), super.getContratto().getPrelievo().toString(), super.getContratto().getRestituzione().toString(), super.getContratto().getAcconto(), super.getContratto().getAuto());
+				con.create(dainviare);
 				ClientiController.noleggi_cliente.add(super.getContratto());
 				ClientiController.fromClient = false;
 			}

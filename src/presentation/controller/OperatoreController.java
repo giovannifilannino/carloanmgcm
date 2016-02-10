@@ -209,7 +209,7 @@ public class OperatoreController extends StageController{
 			Double acconto = contrattoset.getDouble("acconto");
 			String nomeauto = contrattoset.getString("nomeauto");
 			String stato = contrattoset.getString("chiuso");
-			Contratto contratto_daaggiungere = new Contratto(targa, username, nomeauto, tipokm, tiponoleggio, ritiro, consegna, acconto);
+			Contratto contratto_daaggiungere = new Contratto(targa, username,"CarLoan", nomeauto, tipokm, tiponoleggio, ritiro, consegna, acconto);
 			contratto_daaggiungere.setStato(stato);
 			contratto.add(contratto_daaggiungere);
 			

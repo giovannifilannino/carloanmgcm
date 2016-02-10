@@ -27,6 +27,7 @@ public class Agente {
 	}
 	
 	public Agente(){
+		dao = new AgenteDAO();
 		agenzia=new SimpleStringProperty();
 		nome=new SimpleStringProperty();
 		cognome=new SimpleStringProperty();

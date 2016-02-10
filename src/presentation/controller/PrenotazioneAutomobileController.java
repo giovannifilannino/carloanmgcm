@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Hashtable;
-
-import integration.CarLoanDB;
 import business.entity.Automobile;
 import business.entity.Azienda;
+import business.entity.Categoria;
+import business.entity.CategoriaAutomobile;
 import presentation.FrontController;
 import presentation.SameStageController;
 import presentation.controller.utility.Popup;
@@ -42,28 +42,26 @@ public class PrenotazioneAutomobileController extends SameStageController{
 	@FXML
 	TextField acconto;
 	
-	ObservableList<String> categorie;
-	ObservableList<String> automobili;
-	ObservableList<String> agenziee;
+	ObservableList<CategoriaAutomobile> categorie;
+	ObservableList<Automobile> automobili;
+	ObservableList<Azienda> agenziee;
 	static boolean dati = false;
 	String targa;
-	ResultSet agenzieset;
-	ResultSet autoset;
-	ResultSet categorieset;
 	Hashtable<String,String> autodizio = new Hashtable<String,String>();
-	CarLoanDB car = new CarLoanDB();
+	
+	Automobile auto = new Automobile();
+	CategoriaAutomobile categoriadao = new CategoriaAutomobile();
+	Azienda aziendadao = new Azienda();
+	
+	
 	@SuppressWarnings("unchecked")
 	@FXML
-	
-	
 	public void initialize() throws SQLException{
 	
 		automobili = FXCollections.observableArrayList();
 		categorie = FXCollections.observableArrayList();
 		agenziee = FXCollections.observableArrayList();
 		
-		categorieset = car.getCategorie();
-		agenzieset = car.getAgenzie();
 		
 		setAgenzie();
 		setCategorie();
@@ -84,15 +82,11 @@ public class PrenotazioneAutomobileController extends SameStageController{
 	
 	
 	private void setAgenzie() throws SQLException{
-		while(agenzieset.next()){
-			agenziee.add(agenzieset.getString("NomeAgenzia"));
-		}
+		agenziee.addAll(aziendadao.getAll());
 	}
 	
 	private void setCategorie() throws SQLException{
-		while(categorieset.next()){
-			categorie.add(categorieset.getString("nomefascia"));
-		}
+		categorie.addAll(categoriadao.getAll());
 	}
 	
 	
@@ -101,18 +95,16 @@ public class PrenotazioneAutomobileController extends SameStageController{
 		automobili = FXCollections.observableArrayList();
 		if(categoria.getValue()!=null){
 			automobile.setDisable(false);
-			autoset = car.getAuto(categoria.getValue().toString(), super.getContratto().getPrelievo().toString());
-			while(autoset.next()){
-				automobili.add(autoset.getString("nomeauto"));
-				String at = autoset.getString("nomeauto");
-				String tg = autoset.getString("targa");
-				
-				autodizio.put(at, tg);
-			}
+			automobili.addAll(auto.getAutoDisponibili(super.getContratto().getPrelievo().toString(), categoria.getValue().toString()));
+			fillDizio();
 			automobile.setItems(automobili);
-			
 		}
-		
+	}
+	
+	private void fillDizio(){
+		for(Automobile auto : automobili){
+			autodizio.put(auto.getTarga(), auto.getModello_auto());
+		}
 	}
 	
 	@FXML
@@ -132,7 +124,7 @@ public class PrenotazioneAutomobileController extends SameStageController{
 			super.getContratto().setCategoria(categoria.getValue().toString());
 			super.getContratto().setAuto(new Automobile(automobile.getValue().toString()));
 			super.getContratto().setRestituzione(new Azienda(agenzie.getValue().toString()));
-			super.getContratto().setTarga(autodizio.get(automobile.getValue().toString()));
+			super.getContratto().setTarga(autodizio.get(automobile.getValue()));
 			super.getContratto().setAcconto(restituisciAcconto());
 		}
 	}
