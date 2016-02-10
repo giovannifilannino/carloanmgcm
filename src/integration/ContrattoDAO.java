@@ -133,11 +133,11 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 			elemento.setData_inizio(LocalDate.parse(inizioNoleggio));
 			String fineNoleggio=resultSet.getString("FineNoleggio");
 			elemento.setData_inizio(LocalDate.parse(fineNoleggio));
-			String cittaRitiro=resultSet.getString("CittaRitiro");
+			String cittaRitiro=resultSet.getString("Ritiro");
 			Azienda ritiro=new Azienda();
 			ritiro.setNome_azienda(cittaRitiro);
 			elemento.setPrelievo(ritiro);
-			String cittaConsegna=resultSet.getString("CittaConsegna");
+			String cittaConsegna=resultSet.getString("Consegna");
 			Azienda consegna=new Azienda();
 			consegna.setNome_azienda(cittaConsegna);
 			elemento.setPrelievo(consegna);

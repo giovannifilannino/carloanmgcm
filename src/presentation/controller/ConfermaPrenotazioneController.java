@@ -73,7 +73,7 @@ public class ConfermaPrenotazioneController extends SameStageController{
 
 		Optional<ButtonType> result = conferma.showAndWait();
 		if (result.get() == ButtonType.OK){
-			
+			String targa = super.getContratto().getTarga();
 			Contratto dainviare = new Contratto(super.getContratto().getTarga(),LoginController.username,super.getContratto().getAgenzia(),  super.getContratto().getChilometraggio_limitato(), super.getContratto().getNoleggio(),super.getContratto().getStringData_inizio(),super.getContratto().getStringData_fine(),super.getContratto().getPrelievo().toString(),super.getContratto().getRestituzione().toString(), super.getContratto().getAcconto(), super.getContratto().getAuto());
 		    
 			if(OperatoreController.fromOperator){

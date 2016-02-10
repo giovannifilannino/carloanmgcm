@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Hashtable;
+import java.util.List;
+
 import business.entity.Automobile;
 import business.entity.Azienda;
 import business.entity.Categoria;
@@ -95,7 +97,8 @@ public class PrenotazioneAutomobileController extends SameStageController{
 		automobili = FXCollections.observableArrayList();
 		if(categoria.getValue()!=null){
 			automobile.setDisable(false);
-			automobili.addAll(auto.getAutoDisponibili(super.getContratto().getPrelievo().toString(), categoria.getValue().toString()));
+			List<Automobile> banana = auto.getAutoDisponibili( categoria.getValue().toString(),super.getContratto().getPrelievo().toString());
+			automobili.addAll(auto.getAutoDisponibili( categoria.getValue().toString(),super.getContratto().getPrelievo().toString()));
 			fillDizio();
 			automobile.setItems(automobili);
 		}
@@ -103,7 +106,7 @@ public class PrenotazioneAutomobileController extends SameStageController{
 	
 	private void fillDizio(){
 		for(Automobile auto : automobili){
-			autodizio.put(auto.getTarga(), auto.getModello_auto());
+			autodizio.put(auto.getModello_auto(), auto.getTarga());
 		}
 	}
 	
@@ -119,12 +122,11 @@ public class PrenotazioneAutomobileController extends SameStageController{
 	
 	@FXML
 	public void datiOK(ActionEvent e){
-		
 		if(agenzie.getValue()!=null && checkAcconto(acconto.getText())){
 			super.getContratto().setCategoria(categoria.getValue().toString());
 			super.getContratto().setAuto(new Automobile(automobile.getValue().toString()));
 			super.getContratto().setRestituzione(new Azienda(agenzie.getValue().toString()));
-			super.getContratto().setTarga(autodizio.get(automobile.getValue()));
+			super.getContratto().setTarga(autodizio.get(automobile.getValue().toString()));
 			super.getContratto().setAcconto(restituisciAcconto());
 		}
 	}
