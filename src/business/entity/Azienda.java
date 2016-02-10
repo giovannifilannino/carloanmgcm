@@ -9,20 +9,17 @@ import javafx.beans.property.SimpleStringProperty;
 public class Azienda {
 	
 	private SimpleStringProperty nome_azienda;
-	private SimpleStringProperty citta;
 	private AziendaDAO aziendadao;
 	
 	
 	public Azienda(String nome_azienda2){
 		aziendadao = new AziendaDAO();
 		nome_azienda = new SimpleStringProperty(nome_azienda2);
-		citta=new SimpleStringProperty(nome_azienda2 + "banana");
 	}
 	public Azienda(){
 		aziendadao = new AziendaDAO();
 		nome_azienda=new SimpleStringProperty();
 		
-		citta=new SimpleStringProperty();
 	}
 	
 	
@@ -35,14 +32,7 @@ public class Azienda {
 		return nome_azienda.get();
 	}
 
-	public String getCitta() {
-		return citta.get();
-	}
 
-
-	public void setCitta(String citta) {
-		this.citta.set(citta);;
-	}
 	
 	public void setNome_azienda(String nome_azienda) {
 		this.nome_azienda.set(nome_azienda);;
