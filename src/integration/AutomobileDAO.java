@@ -11,7 +11,7 @@ import business.entity.Automobile;
 public class AutomobileDAO extends DAOAB<Automobile>{
 	private static final String INSERT_QUERY="INSERT INTO Auto VALUES(?,?,?,?,?,1)";
 	private static final String GET_AUTO_QUERY="SELECT * FROM Auto WHERE CodAgenzia=?";
-	private final static String GET_DISP_AUTO_QUERY="SELECT NomeAuto,targa "
+	private final static String GET_DISP_AUTO_QUERY="SELECT * "
 			+ "FROM Auto "
 			+ "WHERE CodAgenzia=? AND CodFascia=? AND Disponibile=1";
 	private final static String AUTO_FUORI_QUERY="UPDATE Auto SET Disponibile=0 WHERE NomeAuto=?";
@@ -102,7 +102,7 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 			String CodAgenzia=resultSet.getString("CodAgenzia");
 			elemento.setAgenzia(CodAgenzia);
 			String CodFascia=resultSet.getString("CodFascia");
-			elemento.setModello_auto(CodFascia);
+			elemento.setCategoria(CodFascia);
 			automobili.add(elemento);
 		}
 		return automobili;

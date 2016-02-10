@@ -95,6 +95,10 @@ public class Automobile {
 		}
 	}
 	
+	public void setCategoria(String categoria){
+		this.categoria.set(categoria);
+	}
+	
 	//TRANSFER OBJ
 	
 	public void create(Automobile entity) throws SQLException {
