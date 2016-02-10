@@ -18,12 +18,13 @@ public class Agente {
 	private AgenteDAO dao;
 	
 	
-	public Agente(String agenzia, String nome, String cognome, String username){
+	public Agente(String agenzia, String nome, String cognome, String username,String password){
 		dao = new AgenteDAO();
 		this.agenzia = new SimpleStringProperty(agenzia);
 		this.nome = new SimpleStringProperty(nome);
 		this.cognome = new SimpleStringProperty(cognome);
 		this.user = new SimpleStringProperty(username);
+		this.password = new SimpleStringProperty(password);
 	}
 	
 	public Agente(){

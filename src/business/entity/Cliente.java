@@ -16,7 +16,17 @@ public class Cliente {
 	
 	
 	public Cliente(){
-		
+		clientedao = new ClienteDAO();
+	}
+	
+	
+	public Cliente(String username, String password, String nome, String cognome, int patentato, String nrtelefono){
+		usernameCliente = username;
+		passowrdCliente = password;
+		nomeCliente = nome;
+		cognomeCliente = cognome;
+		neoPatentato = patentato;
+		numTelefono = nrtelefono;
 	}
 	
 	public String getNomeCliente() {

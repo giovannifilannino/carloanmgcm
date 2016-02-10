@@ -1,12 +1,11 @@
 package presentation.controller;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
+import java.sql.SQLException;
 import presentation.StageController;
 import presentation.controller.utility.Popup;
-import integration.CarLoanDB;
 import business.entity.Agente;
+import business.entity.Azienda;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -38,25 +37,22 @@ public class InserisciAgenteController extends StageController{
 	@FXML
 	Button esci_btn;
 	
-	CarLoanDB db = new CarLoanDB();
+	Azienda az = new Azienda();
+	Agente ag = new Agente();
 	
-	ResultSet agenzieset;
-	ObservableList<String> agenzialist = FXCollections.observableArrayList();
+	ObservableList<Azienda> agenzialist = FXCollections.observableArrayList();
 	
 	public void initialize() throws SQLException{
-		agenzieset = db.getAgenzie();
-		while(agenzieset.next()){
-			agenzialist.add(agenzieset.getString("nomeagenzia"));
-		}
+		agenzialist.addAll(az.getAll());
 		agenzie.setItems(agenzialist);
 	}
 	
 	public void conferma(ActionEvent e) throws SQLException{
 		
 		if(username.getText() != null && password.getText() != null && nome.getText() != null && agenzie.getValue() != null){
-			db.setAgente(username.getText(), password.getText(), nome.getText(), cognome.getText(), agenzie.getValue().toString());
-			Agente agente = new Agente(agenzie.getValue().toString(), nome.getText(), cognome.getText(), username.getText());
-			AmministratoreController.agente.add(agente);
+			Agente agento = new Agente(agenzie.getValue().toString(), nome.getText(), cognome.getText(), username.getText(),password.getText());
+			ag.create(agento);
+			AmministratoreController.agente.add(agento);
 			closeStage();
 		}else{
 			Popup.Errore("Errore inserimento.", "Non hai inserito tutte le informazioni necessarie.");

@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import business.entity.Agente;
+import business.entity.Cliente;
 import integration.CarLoanDB;
 import presentation.FrontController;
 import presentation.Main;
@@ -50,9 +52,8 @@ public class LoginController extends StageController{
 	
 	static String username;
 	
-	CarLoanDB db = new CarLoanDB();
-	ResultSet credenziali;
-	ResultSet credenziali_operatore;
+	Cliente cl = new Cliente();
+	Agente ag = new Agente();
 	
 	Image logopic = new Image(Main.class.getResourceAsStream("controller/utility/logo.png"));
 	
@@ -75,27 +76,21 @@ public class LoginController extends StageController{
 	
 	@FXML
 	public void login(ActionEvent e) throws SQLException{
-		if(db.checkCredenzialiClienti(user.getText(), pass.getText()) ){
+		if(cl.checkCredenzialiClienti(user.getText(), pass.getText()) ){
 			Parent root;
 			username = user.getText(); //salva l'informazione dell'username da passare all'interfaccia cliente o operatore
-			
-			
 				
+			//setta le informazioni nelle finestre username e operatore
+					nome  = cl.read(user.getText()).getNome();
+					cognome = cl.read(user.getText()).getCognomeCliente();
 				
-				//setta le informazioni nelle finestre username e operatore
-				credenziali = db.getDatiUtenti(user.getText());
-				
-				while(credenziali.next()){
-					nome  = credenziali.getString("nomecliente");
-					cognome = credenziali.getString("cognomecliente");
-				}
 				
 				
 				
 				FrontController.getIstance().setAutenticato();
 				FrontController.getIstance().dispatchRequest("FinestraClienti");
 				
-		} else if(db.checkCredenzialiAgenti(user.getText(), pass.getText())){
+		} else if(ag.checkcredenziali(user.getText(), pass.getText())){
 			FrontController.getIstance().setAutenticato();
 			try {
 				
@@ -130,12 +125,9 @@ public class LoginController extends StageController{
 	
 	//dato l'username mi restituisce i dati dell'agente
 	private void setDataAgente() throws SQLException{
-		credenziali_operatore = db.getDatiAgente(user.getText());
-		while(credenziali_operatore.next()){
-			nome = credenziali_operatore.getString("nomeagente");
-			cognome = credenziali_operatore.getString("cognomeagente");
-			agenzia = credenziali_operatore.getString("codagenzia");
-		}
+			nome = ag.read(user.getText()).getNome();
+			cognome = ag.read(user.getText()).getCognome();
+			agenzia = ag.read(user.getText()).getAgenzia();
 	}
 	
 	@FXML
@@ -169,14 +161,5 @@ public class LoginController extends StageController{
 	
 	public static String getAgenzia(){
 		return agenzia;
-	}
-	
-	private void setName(String name){
-		this.nome = nome;
-	}
-	
-	
-
-	
-	
+	}	
 }

@@ -1,12 +1,8 @@
 package presentation.controller;
 
-import integration.CarLoanDB;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-
 import presentation.FrontController;
 import presentation.Main;
 import presentation.StageController;
@@ -85,25 +81,17 @@ public class OperatoreController extends StageController{
 	static String sede_nome;
     static Stage prenotazione1;
 	
-	CarLoanDB db = new CarLoanDB();
-	
-	ResultSet autoset;
-	ResultSet contrattoset;
-	
 	static ObservableList<Automobile> auto = FXCollections.observableArrayList();
 	static ObservableList<Contratto> contratto = FXCollections.observableArrayList();
 	
+	Contratto con = new Contratto();
+	Automobile autodao = new Automobile();
+	
 	public void initialize(){
 		logo.setImage(logopic);
+		setAuto();
+		setContratto();
 		
-		try {
-			setAuto();
-			setContratto();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-		}
 		setAutoData();
 		setContrattoData();
 		nome.setText(LoginController.getName());
@@ -145,7 +133,7 @@ public class OperatoreController extends StageController{
 			appoggio.setConferma();
 			contratto.add(appoggio);
 			contratto.remove(indice);
-			db.confermaNoleggio(contratto_damodificare.getTarga());
+			con.confermaNoleggio(contratto_damodificare.getTarga());
 		} else
 			Popup.Errore("Errore operazione", "Il contratto è già confermato o chiuso");
 	}
@@ -158,8 +146,7 @@ public class OperatoreController extends StageController{
 			contratto.chiudiContratto();
 			this.contratto.add(contratto);
 			this.contratto.remove(indice);
-			
-			db.chiudiNoleggio(contratto.getTarga());
+			con.chiudiNoleggio(contratto.getTarga());
 		} else
 			Popup.Errore("Errore operazione", "Il contratto non è ancora confermato o già chiuso");
 		
@@ -180,49 +167,25 @@ public class OperatoreController extends StageController{
 		}
 	}
 	
-	private void setAuto() throws SQLException{
-		
-		autoset = db.getAuto(sede_nome);
-		while(autoset.next()){
-			String targa = autoset.getString("targa");
-			String nomeauto = autoset.getString("nomeauto");
-			int cilindrata = autoset.getInt("cilindrata");
-			String agenzia = autoset.getString("codagenzia");
-			String categoria = autoset.getString("codfascia");
-			auto.add(new Automobile(nomeauto, targa, cilindrata, agenzia, categoria));
+	private void setAuto(){
+		try {
+			auto.addAll(autodao.getAuto(sede_nome));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
 	
-	private void setContratto() throws SQLException{
-		contrattoset = db.getNoleggiA(sede_nome);
-		while(contrattoset.next()){
-			
-			String targa = contrattoset.getString("targa");
-			String username = contrattoset.getString("usernamec");
-			Boolean tipokm = getValue(contrattoset.getInt("tipoKilometraggio"));
-			Boolean tiponoleggio = getValue(contrattoset.getInt("tiponoleggio"));
-			LocalDate inizio = LocalDate.parse(contrattoset.getString("inizionoleggio"));
-			LocalDate fine = LocalDate.parse(contrattoset.getString("finenoleggio"));
-			String ritiro = contrattoset.getString("cittaritiro");
-			String consegna = contrattoset.getString("cittaconsegna");
-			Double acconto = contrattoset.getDouble("acconto");
-			String nomeauto = contrattoset.getString("nomeauto");
-			String stato = contrattoset.getString("chiuso");
-			Contratto contratto_daaggiungere = new Contratto(targa, username,"CarLoan", nomeauto, tipokm, tiponoleggio, ritiro, consegna, acconto);
-			contratto_daaggiungere.setStato(stato);
-			contratto.add(contratto_daaggiungere);
-			
+	private void setContratto(){
+		try {
+			contratto.addAll(con.getNoleggiA(sede_nome));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
-	private boolean getValue(int i){
-		if(i==0){
-			return true;
-		}
-		return false;
-	}
-
 	@Override
 	public void closeStage() {
 		// TODO Auto-generated method stub

@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import business.entity.Agente;
 import business.entity.Azienda;
 import business.entity.Cliente;
 import business.entity.Contratto;
@@ -59,9 +60,10 @@ public class NoleggioController extends SameStageController{
 	LocalDate datainizio;
 	LocalDate datafine;
 	
-	CarLoanDB db = new CarLoanDB();
-	ObservableList<String> agenzie;
-	ResultSet agenzieres;
+	Azienda ag = new Azienda();
+	
+	ObservableList<Azienda> agenzie;
+	
 	
 	private boolean checkContratto(){
 		boolean esito = false;
@@ -73,7 +75,6 @@ public class NoleggioController extends SameStageController{
 	
 	@FXML
 	public void initialize() throws SQLException{
-		agenzieres = db.getAgenzie();
 		chilometraggio_limitato.setToggleGroup(chilometraggio);
 		chilometraggio_illimitato.setToggleGroup(chilometraggio);
 		noleggio_giornaliero.setToggleGroup(noleggio);
@@ -103,9 +104,7 @@ public class NoleggioController extends SameStageController{
 	}
 	
 	private void setAgenzie() throws SQLException{
-		while(agenzieres.next()){
-			agenzie.add(agenzieres.getString("NomeAgenzia"));
-		}
+		agenzie.addAll(ag.getAll());
 	}
 	
 	ClienteDAO elemento=new ClienteDAO();

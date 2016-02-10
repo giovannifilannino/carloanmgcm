@@ -5,6 +5,7 @@ import integration.CarLoanDB;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import business.entity.Cliente;
 import presentation.Main;
 import presentation.StageController;
 import javafx.event.ActionEvent;
@@ -55,7 +56,7 @@ public class RegisterController extends StageController{
 	@FXML
 	RadioButton neo_patentato;
 	
-	CarLoanDB db = new CarLoanDB();
+	Cliente cl = new Cliente();
 	
 	Image logoimage = new Image(Main.class.getResourceAsStream("controller/utility/logo.png"));
 	
@@ -76,7 +77,7 @@ public class RegisterController extends StageController{
 	@FXML
 	public void conferma(ActionEvent e) throws SQLException{
 		
-		if(nome.getText().length()<30 && cognome.getText().length()<30 && isNumeric(nrtelefono.getText()) && nrtelefono.getText().length()==10 && !db.checkCliente(username.getText())){
+		if(nome.getText().length()<30 && cognome.getText().length()<30 && isNumeric(nrtelefono.getText()) && nrtelefono.getText().length()==10 && !cl.checkEsistenzaCliente(username.getText())){
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Sei sicuro?");
 			alert.setContentText("Vuoi confermare i dati inseriti?");
@@ -84,7 +85,9 @@ public class RegisterController extends StageController{
 			
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK){
-			   db.setCliente(username.getText(), password.getText(), nome.getText(), cognome.getText(), getPatentato(), nrtelefono.getText());
+				String banana = nrtelefono.getText();
+				Cliente daaggiungere = new Cliente(username.getText(), password.getText(), nome.getText(), cognome.getText(), getPatentato(), nrtelefono.getText());
+				cl.create(daaggiungere);
 			   alert.close();
 			   closeStage();
 			} else {
@@ -105,7 +108,7 @@ public class RegisterController extends StageController{
 			if(!isNumeric(nrtelefono.getText())){
 				errorMessage = errorMessage + "Non hai inserito numeri, ma caratteri." + "\n";
 			}
-			if(db.checkCliente(username.getText())){
+			if(cl.checkEsistenzaCliente(username.getText())){
 				errorMessage = errorMessage + "Username già presente" + "\n";
 			}
 			Alert alert = new Alert(AlertType.ERROR);
