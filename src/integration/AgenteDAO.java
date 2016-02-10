@@ -37,8 +37,8 @@ public class AgenteDAO extends DAOAB<Agente>{
 	}
 
 	@Override
-	public void update(Agente entity) {
-		//to do	.
+	public boolean update(Agente entity) {
+		return false;
 	}
 
 	@Override

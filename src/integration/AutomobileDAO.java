@@ -36,15 +36,15 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 	}
 
 	@Override
-	public void update(Automobile entity) {
+	public boolean update(Automobile entity) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 	@Override
-	public void delete(String ID) throws SQLException {
+	public boolean delete(String ID) throws SQLException {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 	@Override

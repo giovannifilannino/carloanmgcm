@@ -54,15 +54,15 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 	}
 
 	@Override
-	public void update(Contratto entity) {
+	public boolean update(Contratto entity) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 	@Override
-	public void delete(String ID) throws SQLException {
+	public boolean delete(String ID) throws SQLException {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 	@Override

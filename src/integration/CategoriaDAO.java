@@ -19,15 +19,15 @@ public class CategoriaDAO extends DAOAB<CategoriaAutomobile>{
 	}
 
 	@Override
-	public void update(CategoriaAutomobile entity) {
+	public boolean update(CategoriaAutomobile entity) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 	@Override
-	public void delete(String ID) throws SQLException {
+	public boolean delete(String ID) throws SQLException {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 	@Override

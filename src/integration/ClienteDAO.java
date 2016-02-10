@@ -37,15 +37,15 @@ public class ClienteDAO extends DAOAB<Cliente>{
 	}
 
 	@Override
-	public void update(Cliente entity) {
+	public boolean update(Cliente entity) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 	@Override
-	public void delete(String ID) throws SQLException {
+	public boolean delete(String ID) throws SQLException {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 	@Override
