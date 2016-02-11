@@ -281,7 +281,6 @@ public class Contratto {
 	public void setCodNoleggio(int codNoleggio) {
 		this.codNoleggio = codNoleggio;
 	}
-	//TRANSFER OBJ
 	
 	public void create(Contratto entity) throws SQLException {
 		contrattodao.create(entity);

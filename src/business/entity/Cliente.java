@@ -84,7 +84,6 @@ public class Cliente {
 		return nomeCliente;
 	}
 	
-	//TRANSFER OBJ
 	
 	public void create(Cliente entity) throws SQLException {
 		clientedao.create(entity);

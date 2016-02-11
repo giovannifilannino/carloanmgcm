@@ -99,7 +99,6 @@ public class Automobile {
 		this.categoria.set(categoria);
 	}
 	
-	//TRANSFER OBJ
 	
 	public void create(Automobile entity) throws SQLException {
 		dao.create(entity);

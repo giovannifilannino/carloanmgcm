@@ -72,7 +72,6 @@ public class Agente {
 	public void setPassword(String password2) {
 		password.set(password2);
 	}
-	//TRANSFER OBJ
 	
 	public void create(Agente Entity) throws SQLException{
 		dao.create(Entity);

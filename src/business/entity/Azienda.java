@@ -37,7 +37,6 @@ public class Azienda {
 	public void setNome_azienda(String nome_azienda) {
 		this.nome_azienda.set(nome_azienda);;
 	}
-	//TRANSFER OBJ
 
 	public void create(Azienda entity) throws SQLException {
 		aziendadao.create(entity);
