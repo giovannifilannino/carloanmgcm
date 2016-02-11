@@ -14,7 +14,7 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 	private final static String GET_DISP_AUTO_QUERY="SELECT * "
 			+ "FROM Auto "
 			+ "WHERE CodAgenzia=? AND CodFascia=? AND Disponibile=1";
-	private final static String AUTO_FUORI_QUERY="UPDATE Auto SET Disponibile=0 WHERE NomeAuto=?";
+	private final static String AUTO_FUORI_QUERY="UPDATE Auto SET Disponibile=0 WHERE targa=?";
 	private static final String READ_QUERY="SELECT * FROM Auto WHERE targa=?";
 	
 	@Override
@@ -84,10 +84,10 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 		List<Automobile> lista= getLista(risultato);
 		return lista;
 	}
-	public static void setAutoFuori(String nomeAuto) throws SQLException{
+	public static void setAutoFuori(String targa) throws SQLException{
 		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(AUTO_FUORI_QUERY);
-		prepStat.setString(1, nomeAuto);
+		prepStat.setString(1, targa);
 		prepStat.executeUpdate();
 	}
 	
@@ -107,6 +107,8 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 			elemento.setAgenzia(CodAgenzia);
 			String CodFascia=resultSet.getString("CodFascia");
 			elemento.setCategoria(CodFascia);
+			int disponibile=resultSet.getInt("Disponibile");
+			elemento.setDisponibile(disponibile);
 			automobili.add(elemento);
 		}
 		return automobili;

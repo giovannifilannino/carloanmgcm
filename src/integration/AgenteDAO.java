@@ -22,18 +22,18 @@ public class AgenteDAO extends DAOAB<Agente>{
 		boolean risultato;
 		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(INSERT_QUERY);
-		String usernameAgente=entity.getNome();
+		String usernameAgente=entity.getUser();
 		prepStat.setString(1, usernameAgente);
-		String passwordAgente=entity.getCognome();
+		String passwordAgente=entity.getPassword();
 		prepStat.setString(2, passwordAgente);
-		String nomeAgente=entity.getCognome();
+		String nomeAgente=entity.getNome();
 		prepStat.setString(3, nomeAgente);
 		String cognomeAgente=entity.getCognome();
 		prepStat.setString(4, cognomeAgente);
-		String codAgenzia=entity.getCognome();
+		String codAgenzia=entity.getAgenzia();
 		prepStat.setString(5, codAgenzia);
-		risultato=prepStat.executeUpdate()==1;
-		return risultato;
+		risultato=prepStat.executeUpdate()!=0;
+		return true;
 	}
 
 	@Override
@@ -43,10 +43,12 @@ public class AgenteDAO extends DAOAB<Agente>{
 
 	@Override
 	public boolean delete(String usernameAgente) throws SQLException {
+		boolean risultato;
 		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(DELETE_QUERY);
 		prepStat.setString(1, usernameAgente);
-		return prepStat.executeUpdate()==1;
+		risultato=prepStat.executeUpdate()!=0;
+		return risultato;
 	}
 
 	@Override
