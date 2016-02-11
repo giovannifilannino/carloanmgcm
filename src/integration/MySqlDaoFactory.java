@@ -14,7 +14,7 @@ public class MySqlDaoFactory {
 	
 	private MySqlDaoFactory(){
 		connessione="jdbc:mysql://localhost/CarLoanDB";
-		password="root";
+		password="";
 		username="root";
 	}
 
