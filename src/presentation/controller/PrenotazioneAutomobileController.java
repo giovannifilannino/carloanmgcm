@@ -1,11 +1,9 @@
 package presentation.controller;
 
-import java.io.IOException;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.Hashtable;
 import java.util.List;
-
 import business.entity.Automobile;
 import business.entity.Azienda;
 import business.entity.Categoria;

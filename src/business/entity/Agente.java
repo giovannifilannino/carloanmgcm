@@ -1,8 +1,6 @@
 package business.entity;
 
 import integration.AgenteDAO;
-
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 

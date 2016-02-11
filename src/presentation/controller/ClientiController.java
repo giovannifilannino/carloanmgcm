@@ -1,6 +1,7 @@
 package presentation.controller;
 
 import java.sql.SQLException;
+
 import presentation.FrontController;
 import presentation.Main;
 import presentation.StageController;
@@ -19,11 +20,6 @@ import javafx.scene.image.ImageView;
 
 public class ClientiController extends StageController{
 
-	@Override
-	public void show() {
-		super.setController("FinestraClienti");
-		super.show();
-	}
 
 	@FXML
 	Label nome;
@@ -60,13 +56,16 @@ public class ClientiController extends StageController{
 	public void initialize() throws SQLException{
 		nome.setText(LoginController.getName());
 		cognome.setText(LoginController.getCognome());
-		String banana = LoginController.username;
 		noleggi_cliente.addAll(con.getNoleggiC(LoginController.username));
 		setContrattiTable();
 		logo.setImage(logopic);
 	}
 	
-
+	@Override
+	public void show() {
+		super.setController("FinestraClienti");
+		super.show();
+	}
 	
 	private void setContrattiTable(){
 		storico_noleggi.setItems(noleggi_cliente);
@@ -86,13 +85,6 @@ public class ClientiController extends StageController{
 		control.dispatchRequest("FinestraPrenotazione");
 	}
 	
-	private boolean getValue(int i){
-		if(i==0){
-			return true;
-		}
-		return false;
-	}
-
 	@Override
 	public void closeStage() {
 		// TODO Auto-generated method stub

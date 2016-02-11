@@ -1,6 +1,6 @@
 package presentation.controller;
 
-import integration.CarLoanDB;
+
 import integration.ClienteDAO;
 
 import java.io.IOException;
@@ -14,7 +14,7 @@ import business.entity.Cliente;
 import business.entity.Contratto;
 import presentation.FrontController;
 import presentation.SameStageController;
-import presentation.StageController;
+
 import presentation.controller.utility.Popup;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;

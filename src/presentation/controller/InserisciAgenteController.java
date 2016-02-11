@@ -18,11 +18,7 @@ import javafx.stage.Stage;
 
 public class InserisciAgenteController extends StageController{
 
-	@Override
-	public void show() {
-		super.setController("InserimentoAgente");
-		super.show();
-	}
+
 
 	@FXML
 	TextField nome;
@@ -31,7 +27,7 @@ public class InserisciAgenteController extends StageController{
 	@FXML
 	TextField username;
 	@FXML
-	ComboBox agenzie;
+	ComboBox<Azienda> agenzie;
 	@FXML
 	PasswordField password;
 	@FXML
@@ -45,6 +41,12 @@ public class InserisciAgenteController extends StageController{
 	public void initialize() throws SQLException{
 		agenzialist.addAll(az.getAll());
 		agenzie.setItems(agenzialist);
+	}
+	
+	@Override
+	public void show() {
+		super.setController("InserimentoAgente");
+		super.show();
 	}
 	
 	public void conferma(ActionEvent e) throws SQLException{

@@ -43,12 +43,10 @@ public class AgenteDAO extends DAOAB<Agente>{
 
 	@Override
 	public boolean delete(String usernameAgente) throws SQLException {
-		boolean b=false;
 		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(DELETE_QUERY);
 		prepStat.setString(1, usernameAgente);
-		return b=prepStat.executeUpdate()==1;
-		
+		return prepStat.executeUpdate()==1;
 	}
 
 	@Override

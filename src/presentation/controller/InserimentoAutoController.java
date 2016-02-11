@@ -19,11 +19,6 @@ import javafx.stage.Stage;
 
 public class InserimentoAutoController extends StageController{
 
-	@Override
-	public void show() {
-		super.setController("InserimentoAuto");
-		super.show();
-	}
 
 	@FXML
 	TextField targa;
@@ -53,6 +48,12 @@ public class InserimentoAutoController extends StageController{
 		categorie.setItems(categorielist);
 	}
 	
+	@Override
+	public void show() {
+		super.setController("InserimentoAuto");
+		super.show();
+	}
+
 	
 	@FXML
 	public void conferma(ActionEvent e) throws SQLException{

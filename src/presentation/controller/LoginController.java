@@ -2,13 +2,9 @@ package presentation.controller;
 
 
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 import business.entity.Agente;
 import business.entity.Cliente;
-import integration.CarLoanDB;
 import presentation.FrontController;
 import presentation.Main;
 import presentation.StageController;
@@ -77,7 +73,6 @@ public class LoginController extends StageController{
 	@FXML
 	public void login(ActionEvent e) throws SQLException{
 		if(cl.checkCredenzialiClienti(user.getText(), pass.getText()) ){
-			Parent root;
 			username = user.getText(); //salva l'informazione dell'username da passare all'interfaccia cliente o operatore
 				
 			//setta le informazioni nelle finestre username e operatore
