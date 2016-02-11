@@ -2,28 +2,16 @@ package presentation.controller;
 
 
 import integration.ClienteDAO;
-
-import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-
-import business.entity.Agente;
 import business.entity.Azienda;
-import business.entity.Cliente;
-import business.entity.Contratto;
 import presentation.FrontController;
 import presentation.SameStageController;
-
 import presentation.controller.utility.Popup;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -107,7 +95,7 @@ public class NoleggioController extends SameStageController{
 		agenzie.addAll(ag.getAll());
 	}
 	
-	ClienteDAO elemento=new ClienteDAO();
+	
 	
 	@FXML
 	public void avanti(ActionEvent e){
@@ -115,7 +103,6 @@ public class NoleggioController extends SameStageController{
 		String errore = "";
 		boolean errore2 = false;
 		if(chilometraggio.getSelectedToggle() == null && noleggio.getSelectedToggle()==null){
-			Alert alert = new Alert(AlertType.ERROR);
 			errore = errore + "Non hai selezionato nulla in chilometraggio e in noleggio";
 			errore2 = true;
 			
@@ -132,7 +119,6 @@ public class NoleggioController extends SameStageController{
 			super.getContratto().setData_fine(fine_noleggio.getValue());
 			super.getContratto().setAgenzia(new Azienda(agenzia.getValue().toString()));
 			super.getContratto().setPrelievo(new Azienda(agenzia.getValue().toString()));
-			//super.getContratto().setCliente(elemento.read(LoginController.username).getNome());
 			loadPrenotazioneAuto();
 		}
 		if(errore2){

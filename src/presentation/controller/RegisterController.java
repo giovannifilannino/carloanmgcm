@@ -69,7 +69,6 @@ public class RegisterController extends StageController{
 	@FXML
 	public void esci(ActionEvent e){
 		closeStage();
-		
 	}
 	
 	@FXML

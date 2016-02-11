@@ -73,30 +73,20 @@ public class LoginController extends StageController{
 	@FXML
 	public void login(ActionEvent e) throws SQLException{
 		if(cl.checkCredenzialiClienti(user.getText(), pass.getText()) ){
-			username = user.getText(); //salva l'informazione dell'username da passare all'interfaccia cliente o operatore
-				
+			username = user.getText(); //salva l'informazione dell'username da passare all'interfaccia cliente o operatore	
 			//setta le informazioni nelle finestre username e operatore
-					nome  = cl.read(user.getText()).getNome();
-					cognome = cl.read(user.getText()).getCognomeCliente();
-				
-				
-				
-				
-				FrontController.getIstance().setAutenticato();
-				FrontController.getIstance().dispatchRequest("FinestraClienti");
-				
+			nome  = cl.read(user.getText()).getNome();
+			cognome = cl.read(user.getText()).getCognomeCliente();
+			FrontController.getIstance().setAutenticato();
+			FrontController.getIstance().dispatchRequest("FinestraClienti");	
 		} else if(ag.checkcredenziali(user.getText(), pass.getText())){
 			FrontController.getIstance().setAutenticato();
 			try {
-				
-				
 				setDataAgente();
-				
 				//Caricamento nuova finestra e chiusura finestra login
 				FrontController.getIstance().dispatchRequest("FinestraOperatore");
 				Stage stage = (Stage) exit_btn.getScene().getWindow();
 				stage.close();
-				
 			} catch(Exception e1) {
 				e1.printStackTrace();
 			}

@@ -26,11 +26,7 @@ import javafx.stage.Stage;
 
 public class OperatoreController extends StageController{
 
-	@Override
-	public void show() {
-		super.setController("FinestraOperatore");
-		super.show();
-	}
+
 
 	@FXML
 	Label nome;
@@ -89,14 +85,20 @@ public class OperatoreController extends StageController{
 	
 	public void initialize(){
 		logo.setImage(logopic);
-		setAuto();
-		setContratto();
+		setAuto(); //array auto riempito
+		setContratto(); //array contratti riempito
 		
-		setAutoData();
-		setContrattoData();
+		setAutoData(); //inserimento dei dati nelle tabelle
+		setContrattoData(); //inserimento dei dati nelle tabelle
 		nome.setText(LoginController.getName());
 		cognome.setText(LoginController.getCognome());
 		sede.setText(LoginController.getAgenzia());
+	}
+	
+	@Override
+	public void show() {
+		super.setController("FinestraOperatore");
+		super.show();
 	}
 	
 	private void setAutoData(){
