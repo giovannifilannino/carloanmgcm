@@ -3,9 +3,11 @@ package presentation.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+
 import presentation.FrontController;
 import presentation.Main;
 import presentation.StageController;
+import presentation.controller.utility.ImageGetter;
 import presentation.controller.utility.Popup;
 import business.entity.Automobile;
 import business.entity.Contratto;
@@ -71,7 +73,7 @@ public class OperatoreController extends StageController{
 	@FXML
 	ImageView logo;
 	
-	Image logopic = new Image(Main.class.getResourceAsStream("controller/utility/logo.png"));
+	Image logopic = ImageGetter.getLogo();
 	
 	static boolean fromOperator = false;
 	static String sede_nome;

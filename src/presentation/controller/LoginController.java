@@ -3,17 +3,16 @@ package presentation.controller;
 
 
 import java.sql.SQLException;
+
 import business.entity.Agente;
 import business.entity.Cliente;
 import presentation.FrontController;
 import presentation.Main;
 import presentation.StageController;
+import presentation.controller.utility.ImageGetter;
 import presentation.controller.utility.Popup;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
@@ -23,10 +22,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class LoginController extends StageController{
-
-	
-	
-	
 
 	@FXML
 	Button enter;
@@ -51,7 +46,7 @@ public class LoginController extends StageController{
 	Cliente cl = new Cliente();
 	Agente ag = new Agente();
 	
-	Image logopic = new Image(Main.class.getResourceAsStream("controller/utility/logo.png"));
+	Image logopic = ImageGetter.getLogo();
 	
 	
 	@FXML
@@ -123,17 +118,7 @@ public class LoginController extends StageController{
 	
 	@FXML
 	public void register(ActionEvent e){
-		Parent root;
-		try {
-			root = FXMLLoader.load(getClass().getResource("fxmlclass/RegisterWindows.fxml"));
-			Stage a = new Stage();
-			a.setTitle("Registrazione");
-			a.setScene(new Scene(root));
-			a.show();
-			//((Node) e.getSource()).getScene().getWindow().hide();
-		} catch(Exception e1) {
-			e1.printStackTrace();
-		}
+		FrontController.getIstance().dispatchRequest("registerwindows");
 	}
 	
 	public static String getName(){

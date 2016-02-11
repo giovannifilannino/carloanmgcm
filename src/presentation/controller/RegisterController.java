@@ -3,9 +3,11 @@ package presentation.controller;
 
 import java.sql.SQLException;
 import java.util.Optional;
+
 import business.entity.Cliente;
 import presentation.Main;
 import presentation.StageController;
+import presentation.controller.utility.ImageGetter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -56,7 +58,7 @@ public class RegisterController extends StageController{
 	
 	Cliente cl = new Cliente();
 	
-	Image logoimage = new Image(Main.class.getResourceAsStream("controller/utility/logo.png"));
+	Image logoimage = ImageGetter.getLogo();
 	
 	@FXML
 	public void initialize(){
@@ -82,7 +84,6 @@ public class RegisterController extends StageController{
 			
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK){
-				String banana = nrtelefono.getText();
 				Cliente daaggiungere = new Cliente(username.getText(), password.getText(), nome.getText(), cognome.getText(), getPatentato(), nrtelefono.getText());
 				cl.create(daaggiungere);
 			   alert.close();

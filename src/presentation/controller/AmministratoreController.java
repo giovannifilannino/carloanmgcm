@@ -4,9 +4,11 @@ package presentation.controller;
 
 import java.sql.SQLException;
 import java.util.Optional;
+
 import presentation.FrontController;
 import presentation.Main;
 import presentation.StageController;
+import presentation.controller.utility.ImageGetter;
 import business.entity.Agente;
 import business.entity.Azienda;
 import javafx.collections.FXCollections;
@@ -52,7 +54,7 @@ public class AmministratoreController extends StageController{
 	@FXML
 	ImageView logo;
 	
-	Image logopic = new Image(Main.class.getResourceAsStream("controller/utility/logo.png"));
+	Image logopic = ImageGetter.getLogo();
 	Azienda az;
 	Agente ag;
 	

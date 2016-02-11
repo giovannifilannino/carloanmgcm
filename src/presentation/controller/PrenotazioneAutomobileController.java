@@ -95,7 +95,6 @@ public class PrenotazioneAutomobileController extends SameStageController{
 		automobili = FXCollections.observableArrayList();
 		if(categoria.getValue()!=null){
 			automobile.setDisable(false);
-			List<Automobile> banana = auto.getAutoDisponibili( categoria.getValue().toString(),super.getContratto().getPrelievo().toString());
 			automobili.addAll(auto.getAutoDisponibili( categoria.getValue().toString(),super.getContratto().getPrelievo().toString()));
 			fillDizio();
 			automobile.setItems(automobili);

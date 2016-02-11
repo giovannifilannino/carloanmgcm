@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import presentation.FrontController;
 import presentation.Main;
 import presentation.StageController;
+import presentation.controller.utility.ImageGetter;
 import business.entity.Contratto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,9 +45,8 @@ public class ClientiController extends StageController{
 	
 	Contratto con = new Contratto();
 	
-	FrontController control = FrontController.getIstance();
 	
-	Image logopic = new Image(Main.class.getResourceAsStream("controller/utility/logo.png"));
+	Image logopic = ImageGetter.getLogo();
 	
 	static boolean fromClient = false;
 	
@@ -82,7 +82,7 @@ public class ClientiController extends StageController{
 	
 	@FXML
 	public void apriNoleggio(ActionEvent e){
-		control.dispatchRequest("FinestraPrenotazione");
+		FrontController.getIstance().dispatchRequest("FinestraPrenotazione");
 	}
 	
 	@Override
