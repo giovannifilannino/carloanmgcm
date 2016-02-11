@@ -32,7 +32,7 @@ public class Automobile {
 		cilindrata=new SimpleIntegerProperty();
 		agenzia=new SimpleStringProperty();
 		categoria=new SimpleStringProperty();
-		disponibile=new SimpleStringProperty();
+		disponibile=new SimpleStringProperty("disponibile");
 		dao = new AutomobileDAO();
 	}
 	
@@ -56,8 +56,14 @@ public class Automobile {
 		return categoria.get();
 	}
 	
-	public String getDisponibile(){
-		return disponibile.get();
+	public int getDisponibile(){
+		if(disponibile.get().compareToIgnoreCase("disponibile")==0){
+			return 1;
+		}
+		else{
+			return 0;
+		}
+
 	}
 	public String getAgenzia(){
 		return agenzia.get();
@@ -67,6 +73,15 @@ public class Automobile {
 	@Override
 	public String toString() {
 		return modello_auto.get();
+	}
+	
+	public void setDisponibile(int disp){
+		if(disp==1){
+			this.disponibile.set("disponibile");
+		}
+		else{
+			this.disponibile.set("NON DISPONIBILE");
+		}
 	}
 
 	public void setModello_auto(String modello_auto2) {
@@ -99,6 +114,7 @@ public class Automobile {
 		this.categoria.set(categoria);
 	}
 	
+	//TRANSFER OBJ
 	
 	public void create(Automobile entity) throws SQLException {
 		dao.create(entity);
