@@ -1,10 +1,8 @@
 package presentation.controller;
 
-import integration.CarLoanDB;
 
 import java.sql.SQLException;
 import java.util.Optional;
-
 import business.entity.Cliente;
 import presentation.Main;
 import presentation.StageController;

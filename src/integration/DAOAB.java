@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.List;
 
 public abstract class DAOAB<Entity> implements DAO<Entity>{
-	CarLoanDB DB=new CarLoanDB();
 	protected static final int FIRST = 0;
 	static int contatore=0;
 	
