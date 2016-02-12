@@ -19,7 +19,6 @@ import business.entity.Azienda;
 
 
 	public class TestAutomobileDAO extends TestCase {
-		private static final String DELETE_QUERY="DELETE FROM Auto WHERE targa=?";
 		AutomobileDAO test;
 		AutomobileDAO testCreate;
 		Automobile[] auto;
@@ -39,18 +38,10 @@ import business.entity.Azienda;
 				super.tearDown();
 				test = null;
 			}
-			private boolean deletetest(String ID) throws SQLException {
-				boolean b= false;
-				Connection connessione=MySqlDaoFactory.connetti();
-				PreparedStatement prepStat=connessione.prepareStatement(DELETE_QUERY);
-				prepStat.setString(1,ID);
-				return b=prepStat.executeUpdate()==1;
-				
-			}
 	@Test
 	public void testCreateAutomobile() throws SQLException {
 		try{
-			deletetest("RWERWR7");
+			test.delete("RWERWR7");
 		}
 		catch(SQLException e){
 			

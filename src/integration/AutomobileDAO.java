@@ -16,6 +16,7 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 			+ "WHERE CodAgenzia=? AND CodFascia=? AND Disponibile=1";
 	private final static String AUTO_FUORI_QUERY="UPDATE Auto SET Disponibile=0 WHERE targa=?";
 	private static final String READ_QUERY="SELECT * FROM Auto WHERE targa=?";
+	private static final String DELETE_QUERY="DELETE FROM Auto WHERE targa=?";
 	
 	@Override
 	public boolean create(Automobile entity) throws SQLException {
@@ -43,8 +44,11 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 
 	@Override
 	public boolean delete(String ID) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		boolean b;
+		Connection connessione=MySqlDaoFactory.connetti();
+		PreparedStatement prepStat=connessione.prepareStatement(DELETE_QUERY);
+		prepStat.setString(1,ID);
+		return b=prepStat.executeUpdate()>=1;
 	}
 
 	@Override
