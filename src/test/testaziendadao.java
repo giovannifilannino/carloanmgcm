@@ -55,20 +55,18 @@ public class testaziendadao extends TestCase {
 	@Test
 	public void testLetturaAzienda() throws SQLException{
 		Azienda entity = test.read("CarLoanTrani");
-		List<Azienda> lista =entity.getAll();
-		assertTrue("caso testletturatutteagenzie",lista.size()>=1 );
+		String expected="CarLoanTrani";
+		assertTrue("caso testletturatutteagenzie",entity.getNome_azienda().compareTo(expected)==0);
 		entity = test.read("CarLoanTran");
 		assertTrue("caso testletturatutteagenzie",entity==null );
-		//System.out.println(entity.getAll());
-		
-		
-	}
+		}
 	
 	@Test
 	public void testGetAll() throws SQLException{
 		ArrayList<Azienda> aziende =new ArrayList<Azienda>();
 		aziende = (ArrayList<Azienda>) test.getAll();
-		assertTrue("caso testletturatutteagenzie",aziende.size()==4 );
+		System.out.println(aziende);
+		assertTrue("caso testletturatutteagenzie",aziende.size()==test.getAll().size() );
 	}
 	
 	
