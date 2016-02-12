@@ -48,7 +48,8 @@ public class AutomobileDAO extends DAOAB<Automobile>{
 		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(DELETE_QUERY);
 		prepStat.setString(1,ID);
-		return b=prepStat.executeUpdate()>=1;
+		b=prepStat.executeUpdate()>=1;
+		return b;
 	}
 
 	@Override
