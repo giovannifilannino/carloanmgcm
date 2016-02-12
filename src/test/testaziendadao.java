@@ -37,9 +37,7 @@ public class testaziendadao extends TestCase {
 		test.create(entity);
 		Azienda result = test.read("test3");
 		List<Azienda> lista =entity.getAll();
-		//System.out.println(entity.getAll());
-		assertTrue("caso testletturatutteagenzie",lista.get(0)!=null );
-		//System.out.println(test.getAll());
+		assertTrue("caso testNuovaAgenzia",lista.get(0)!=null );
 		
 	}
 	
@@ -47,26 +45,24 @@ public class testaziendadao extends TestCase {
 	public void testEliminaAzienda() throws SQLException {
 		boolean result;
 		boolean expected= true;
-		Azienda entity=new Azienda();
 		result = test.delete("test3");
-		assertTrue("caso testnuovaazienda",result == expected);
+		assertTrue("caso testEliminaAzienda",result == expected);
 	}
 	
 	@Test
 	public void testLetturaAzienda() throws SQLException{
 		Azienda entity = test.read("CarLoanTrani");
 		String expected="CarLoanTrani";
-		assertTrue("caso testletturatutteagenzie",entity.getNome_azienda().compareTo(expected)==0);
+		assertTrue("caso testletturaAzienda",entity.getNome_azienda().compareTo(expected)==0);
 		entity = test.read("CarLoanTran");
-		assertTrue("caso testletturatutteagenzie",entity==null );
+		assertTrue("caso testletturaAzienda",entity==null );
 		}
 	
 	@Test
 	public void testGetAll() throws SQLException{
 		ArrayList<Azienda> aziende =new ArrayList<Azienda>();
 		aziende = (ArrayList<Azienda>) test.getAll();
-		System.out.println(aziende);
-		assertTrue("caso testletturatutteagenzie",aziende.size()==test.getAll().size() );
+		assertTrue("caso testletturatutteAgenzie",aziende.size()>=0 );
 	}
 	
 	

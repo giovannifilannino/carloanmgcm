@@ -44,7 +44,7 @@ public class testclientedao extends TestCase {
 		entity.setUsernameCliente("username" + boom);
 		entity.setPassowrdCliente("password");
 		test.create(entity);
-		assertTrue("caso testletturatutteagenzie",test.read("username" + boom)!=null );
+		assertTrue("caso testCreaCliente",test.read("username" + boom)!=null );
 		}
 
 	@Test
@@ -54,13 +54,13 @@ public class testclientedao extends TestCase {
 		System.out.println(expected.getCognomeCliente());
 		assertTrue("caso testletturatutteagenzie",entity.getCognomeCliente().compareTo(expected.getCognomeCliente())==0);
 		entity = test.read("caramba");
-		assertTrue("caso testletturatutteagenzie",entity==null);
+		assertTrue("caso testletturaCLiente",entity==null);
 		}
 
 	@Test
 	public void testCheckCredenzialiClienti() throws SQLException {
 		assertTrue("caso testCheckCredenziali",test.checkCredenzialiClienti("username","password")==true );
-		assertTrue("caso testCheckCredenzialie",test.checkCredenzialiClienti("User", "password")==false );
+		assertTrue("caso testCheckCredenziali",test.checkCredenzialiClienti("User", "password")==false );
 		assertTrue("caso testCheckCredenziali",test.checkCredenzialiClienti("username", "Pass")==false );
 		assertTrue("caso testCheckCredenziali",test.checkCredenzialiClienti("username", "PASS")==false );
 	}
