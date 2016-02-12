@@ -72,6 +72,8 @@ public class OperatoreController extends StageController{
 	Button conferma;
 	@FXML
 	ImageView logo;
+	@FXML
+	Button refresh;
 	
 	Image logopic = ImageGetter.getLogo();
 	
@@ -131,11 +133,9 @@ public class OperatoreController extends StageController{
 	public void conferma_noleggio(ActionEvent e) throws SQLException{
 		int indice = noleggio.getSelectionModel().getSelectedIndex();
 		Contratto contratto_damodificare = (Contratto) noleggio.getItems().get(indice);
-		Contratto appoggio = contratto_damodificare;
 		if(contratto_damodificare.getStato().equalsIgnoreCase("non confermato")){
-			appoggio.setConferma();
-			contratto.add(appoggio);
-			contratto.remove(indice);
+			contratto_damodificare.setConferma();
+			noleggio.refresh();
 			con.confermaNoleggio(contratto_damodificare.getTarga());
 		} else
 			Popup.Errore("Errore operazione", "Il contratto è già confermato o chiuso");
@@ -147,8 +147,7 @@ public class OperatoreController extends StageController{
 		Contratto contratto = (Contratto) noleggio.getItems().get(indice);
 		if(contratto.getStato().equalsIgnoreCase("confermato")){
 			contratto.chiudiContratto();
-			this.contratto.add(contratto);
-			this.contratto.remove(indice);
+			noleggio.refresh();
 			con.chiudiNoleggio(contratto.getTarga());
 		} else
 			Popup.Errore("Errore operazione", "Il contratto non è ancora confermato o già chiuso");
@@ -180,5 +179,12 @@ public class OperatoreController extends StageController{
 		}
 		
 	}
+	
+	@FXML
+	public void refresh(){
+		noleggio.refresh();
+		automobili_table.refresh();
+	}
+
 	
 }
