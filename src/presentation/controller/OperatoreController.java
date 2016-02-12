@@ -87,7 +87,6 @@ public class OperatoreController extends StageController{
 	
 	public void initialize() throws SQLException{
 		logo.setImage(logopic);
-		String aaa = LoginController.getAgenzia();
 		auto.addAll(autodao.getAuto(LoginController.getAgenzia()));
 		contratto.addAll(con.getNoleggiA(LoginController.getAgenzia()));
 		setAutoData(); //inserimento dei dati nelle tabelle
@@ -166,6 +165,19 @@ public class OperatoreController extends StageController{
 	@Override
 	public void closeStage() {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	@FXML
+	public void eliminaAuto(ActionEvent e) throws SQLException{
+		int indice = automobili_table.getSelectionModel().getSelectedIndex();
+		Automobile autodelete = (Automobile) automobili_table.getItems().get(indice);
+		if(autodelete.getDisponibile()==0){
+			Popup.Errore("Errore nell'eliminazione", "Non puoi eliminare una macchina in uso");
+		} else {
+			autodao.delete(autodelete.getTarga());
+			auto.remove(indice);
+		}
 		
 	}
 	

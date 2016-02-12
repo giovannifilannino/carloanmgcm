@@ -59,7 +59,7 @@ public class InserimentoAutoController extends StageController{
 	public void conferma(ActionEvent e) throws SQLException{
 		if(targa.getText()!=null && modello_auto.getText() != null && agenzia.getValue() != null && categorie.getValue() != null && isNumeric(cilindrata.getText())){
 			auto.create(new Automobile(modello_auto.getText(), targa.getText(), getCilindrata(cilindrata.getText()),agenzia.getValue().toString(), categorie.getValue().toString()));
-			OperatoreController.auto.add(new Automobile(targa.getText(), modello_auto.getText(), getCilindrata(cilindrata.getText()), agenzia.getValue().toString(), categorie.getValue().toString()));
+			OperatoreController.auto.add(new Automobile( modello_auto.getText(),targa.getText(), getCilindrata(cilindrata.getText()), agenzia.getValue().toString(), categorie.getValue().toString()));
 			closeStage();
 		} else {
 			Popup.Errore("Errore inserimento", "Non hai inserito tutti i dati");
