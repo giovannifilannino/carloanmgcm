@@ -95,13 +95,17 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 		return lista;
 	}
 	
-	public void confermaNoleggio(String targa) throws SQLException{
+	public boolean confermaNoleggio(String targa) throws SQLException{
+		boolean risultato=false;
 		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat1=connessione.prepareStatement(CONFERMA_QUERY);
 		prepStat1.setString(1, targa);
 		prepStat1.executeUpdate();
+		risultato=prepStat1.executeUpdate()>=1;
+		return risultato;
 	}
-	public void chiudiNoleggio(String targa) throws SQLException{
+	public boolean chiudiNoleggio(String targa) throws SQLException{
+		boolean risultato=false;
 		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat=connessione.prepareStatement(CHIUDI_QUERY1);
 		prepStat.setString(1, targa);
@@ -109,6 +113,8 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 		PreparedStatement prepStat1=connessione.prepareStatement(CHIUDI_QUERY2);
 		prepStat1.setString(1, targa);
 		prepStat1.executeUpdate();
+		risultato=prepStat1.executeUpdate()>=1;
+		return risultato;
 	}
 	
 	private List<Contratto> getLista(ResultSet resultSet) throws SQLException{

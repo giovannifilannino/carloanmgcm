@@ -60,4 +60,23 @@ public class testContrattodao extends TestCase{
 		assertTrue("caso testNoleggiC",test.getNoleggiC("Miguel").size()>=1);
 		assertTrue("caso testNoleggiC",test.getNoleggiC("Ruggierorizzi").size()==0 );
 	}
+	@Test 
+	 public void testchiudiNoleggio() throws SQLException{
+		String targa1="BQ446XL";
+		 test.chiudiNoleggio(targa1);
+		 boolean controllo= test.chiudiNoleggio(targa1);
+		 assertTrue("caso testNoleggiC",controllo==true);
+		 targa1="bbbbbbbbb";
+		 assertTrue("caso testNoleggiC",controllo==false);
+	 }
+	@Test
+	 public void testconfermaNoleggio() throws SQLException {
+		 String targa1="BQ446XL";
+		 test.chiudiNoleggio(targa1);
+		 boolean controllo=test.confermaNoleggio(targa1);
+		 //System.out.println(controllo);
+		 assertTrue("caso testNoleggiC",controllo==true);
+		 targa1="bbbbbbbbb";
+		 assertTrue("caso testNoleggiC",test.confermaNoleggio(targa1)==false);
+	}
 }
