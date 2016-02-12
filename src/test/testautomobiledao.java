@@ -71,7 +71,7 @@ import business.entity.Azienda;
 			System.out.println(test.getAuto("CarloanTrani").get(i));
 		//assertTrue("caso testletturatutteagenzie",auto.get(i)==test.getAuto("CarLoanTrani").get(i));
 		}
-		assertTrue("caso testletturatutteagenzie",test.getAuto("CarLoan").size()==0 );
+		assertTrue("caso testletturatutteagenzie doveva essere:" + 0 + " invece è: " +test.getAuto("Carloan").size(),test.getAuto("CarLoan").size()==0 );
 
 		}
 

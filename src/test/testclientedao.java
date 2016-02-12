@@ -3,6 +3,7 @@ package test;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
+import java.util.Random;
 
 import junit.framework.TestCase;
 import integration.AutomobileDAO;
@@ -34,14 +35,16 @@ public class testclientedao extends TestCase {
 	@Test
 	public void testCreateCliente() throws SQLException {
 		Cliente entity=new Cliente();
+		Random ran = new Random();
+		int boom = ran.nextInt();
 		entity.setNomeCliente("armando");
 		entity.setCognomeCliente("brunelleschi");
 		entity.setNumTelefono("3483436010");
 		entity.setNeoPatentato(0);
-		entity.setUsernameCliente("username");
+		entity.setUsernameCliente("username" + boom);
 		entity.setPassowrdCliente("password");
 		test.create(entity);
-		assertTrue("caso testletturatutteagenzie",test.read("username")!=null );
+		assertTrue("caso testletturatutteagenzie",test.read("username" + boom)!=null );
 		}
 
 	@Test

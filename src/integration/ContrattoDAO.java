@@ -51,7 +51,7 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 		prepStat.setString(13, "NON CONFERMATO");
 		prepStat.executeUpdate();
 		AutomobileDAO.setAutoFuori(nomeAuto);
-		return false;
+		return true;
 	}
 
 	@Override
@@ -100,8 +100,8 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 		Connection connessione=MySqlDaoFactory.connetti();
 		PreparedStatement prepStat1=connessione.prepareStatement(CONFERMA_QUERY);
 		prepStat1.setString(1, targa);
-		prepStat1.executeUpdate();
-		risultato=prepStat1.executeUpdate()>=1;
+		int i = prepStat1.executeUpdate();
+		risultato=i>=1;
 		return risultato;
 	}
 	public boolean chiudiNoleggio(String targa) throws SQLException{
