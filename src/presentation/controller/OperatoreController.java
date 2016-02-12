@@ -85,11 +85,11 @@ public class OperatoreController extends StageController{
 	Contratto con = new Contratto();
 	Automobile autodao = new Automobile();
 	
-	public void initialize(){
+	public void initialize() throws SQLException{
 		logo.setImage(logopic);
-		setAuto(); //array auto riempito
-		setContratto(); //array contratti riempito
-		
+		String aaa = LoginController.getAgenzia();
+		auto.addAll(autodao.getAuto(LoginController.getAgenzia()));
+		contratto.addAll(con.getNoleggiA(LoginController.getAgenzia()));
 		setAutoData(); //inserimento dei dati nelle tabelle
 		setContrattoData(); //inserimento dei dati nelle tabelle
 		nome.setText(LoginController.getName());
@@ -158,37 +158,10 @@ public class OperatoreController extends StageController{
 	
 	@FXML
 	public void inserire_auto(ActionEvent e){
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("fxmlclass/InserimentoAuto.fxml"));
-			Stage a = new Stage();
-			a.setTitle("Noleggio Auto");
-			a.setScene(new Scene(loader.load()));
-			a.show();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		FrontController.getIstance().dispatchRequest("inserimentoauto");
 	}
 	
-	private void setAuto(){
-		try {
-			auto.addAll(autodao.getAuto(sede_nome));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	
-	private void setContratto(){
-		try {
-			contratto.addAll(con.getNoleggiA(sede_nome));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 	
 	@Override
 	public void closeStage() {

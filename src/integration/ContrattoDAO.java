@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import business.entity.Azienda;
+import business.entity.Cliente;
 import business.entity.Contratto;
 
 public class ContrattoDAO extends DAOAB<Contratto> {
@@ -120,7 +121,12 @@ public class ContrattoDAO extends DAOAB<Contratto> {
 			elemento.setTarga(Targa);
 			String UsernameC=resultSet.getString("UsernameC");
 			ClienteDAO e=new ClienteDAO();
-			elemento.setCliente(e.read(UsernameC));
+			if(e.read(UsernameC)==null){
+				elemento.setCliente(new Cliente(""));
+			}else {
+				elemento.setCliente(e.read(UsernameC));
+			}
+			
 			String NomeAgenzia=resultSet.getString("NomeAgenzia");
 			Azienda a=new Azienda();
 			a.setNome_azienda(NomeAgenzia);

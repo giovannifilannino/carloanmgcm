@@ -3,9 +3,7 @@ package presentation.controller;
 
 import java.sql.SQLException;
 import java.util.Optional;
-
 import business.entity.Cliente;
-import presentation.Main;
 import presentation.StageController;
 import presentation.controller.utility.ImageGetter;
 import javafx.event.ActionEvent;
