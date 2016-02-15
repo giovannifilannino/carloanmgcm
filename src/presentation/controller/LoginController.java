@@ -118,7 +118,7 @@ public class LoginController extends StageController{
 	
 	@FXML
 	public void register(ActionEvent e){
-		FrontController.getIstance().dispatchRequest("registerwindows");
+		FrontController.getIstance().register();
 	}
 	
 	public static String getName(){

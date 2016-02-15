@@ -17,6 +17,10 @@ public class FrontController {
 		}
 	}
 	
+	public void register(){
+		dispatcher.dispatch("registerwindows");
+	}
+	
 	public static FrontController getIstance(){
 		return front;
 	}
